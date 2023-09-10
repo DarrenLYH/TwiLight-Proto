@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private FieldOfView fieldOfView;
+    [SerializeField] private MagicalLight ML;
     public float moveSpeed = 5f;
-    public Rigidbody2D rb;
+    public Rigidbody2D RB;
     Vector2 movement;
 
     #region Player Movement
@@ -15,14 +15,20 @@ public class Player : MonoBehaviour
         Look();
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+
+        //Toggle Flashlight
+        if (Input.GetMouseButtonDown(0))
+        {
+            ML.isToggled = !ML.isToggled;
+        }
     }
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        RB.MovePosition(RB.position + movement * moveSpeed * Time.fixedDeltaTime);
 
-        fieldOfView.SetAimDirection(this.transform.up);
-        fieldOfView.SetOrigin(transform.position);
+        ML.SetAimDirection(this.transform.up);
+        ML.SetOrigin(transform.position);
     }
 
     void Look()
