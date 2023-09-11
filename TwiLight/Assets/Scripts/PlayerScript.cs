@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerScript : MonoBehaviour
 {
     [SerializeField] private MagicalLight ML;
     public float moveSpeed = 5f;
     public Rigidbody2D RB;
     Vector2 movement;
+    public int lightLevel = 1;
 
     #region Player Movement
     void Update()

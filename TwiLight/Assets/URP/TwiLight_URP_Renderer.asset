@@ -42,6 +42,48 @@ MonoBehaviour:
       restoreCamera: 1
       offset: {x: 0, y: 0, z: 0, w: 0}
       cameraFieldOfView: 60
+--- !u!114 &-732849886446472589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
+  m_Name: VisibleObjects
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    passTag: VisibleObjects
+    Event: 500
+    filterSettings:
+      RenderQueueType: 0
+      LayerMask:
+        serializedVersion: 2
+        m_Bits: 1024
+      PassNames: []
+    overrideMaterial: {fileID: 0}
+    overrideMaterialPassIndex: 0
+    overrideShader: {fileID: 0}
+    overrideShaderPassIndex: 0
+    overrideMode: 0
+    overrideDepthState: 0
+    depthCompareFunction: 4
+    enableWrite: 1
+    stencilSettings:
+      overrideStencilState: 1
+      stencilReference: 1
+      stencilCompareFunction: 3
+      passOperation: 0
+      failOperation: 0
+      zFailOperation: 0
+    cameraSettings:
+      overrideCamera: 0
+      restoreCamera: 1
+      offset: {x: 0, y: 0, z: 0, w: 0}
+      cameraFieldOfView: 60
 --- !u!114 &-696177560217382769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,7 +104,7 @@ MonoBehaviour:
       RenderQueueType: 1
       LayerMask:
         serializedVersion: 2
-        m_Bits: 2176
+        m_Bits: 4224
       PassNames: []
     overrideMaterial: {fileID: 0}
     overrideMaterialPassIndex: 0
@@ -102,8 +144,9 @@ MonoBehaviour:
   m_RendererFeatures:
   - {fileID: -5735534688542001966}
   - {fileID: 2899590815418608626}
+  - {fileID: -732849886446472589}
   - {fileID: -696177560217382769}
-  m_RendererFeatureMap: d2f485c4964967b0f2eb02e37b6a3d288f10a58e32ae56f6
+  m_RendererFeatureMap: d2f485c4964967b0f2eb02e37b6a3d287332ac3ce964d4f58f10a58e32ae56f6
   m_UseNativeRenderPass: 0
   m_TransparencySortMode: 0
   m_TransparencySortAxis: {x: 0, y: 1, z: 0}
@@ -158,17 +201,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
-  m_Name: BehindMask
+  m_Name: InvisibleObject
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
-    passTag: BehindMask
+    passTag: InvisibleObject
     Event: 500
     filterSettings:
       RenderQueueType: 1
       LayerMask:
         serializedVersion: 2
-        m_Bits: 512
+        m_Bits: 520
       PassNames: []
     overrideMaterial: {fileID: 0}
     overrideMaterialPassIndex: 0
