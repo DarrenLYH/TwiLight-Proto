@@ -7,9 +7,9 @@ using UnityEngine.Rendering;
 public abstract class LightableObject : MonoBehaviour
 {
     public GameObject player;
-    public int levelRequirement;
-    public bool isContacted;
-    public bool isTriggered;
+    public int levelRequirement; //Magic Light Level required to activate Object
+    public bool isContacted = false;     //Whether the Object is contacted by Light or not
+    public bool isTriggered;     //Whether the Object has been activated / is currently activated
 
     public void Start()
     {
@@ -17,35 +17,40 @@ public abstract class LightableObject : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
+    //If Contacted by Light
     public void OnHitEnter()
     {
         isContacted = true;
+        //Check Activation Requirements
         if (levelRequirement <= player.GetComponent<PlayerScript>().lightLevel)
         {
             isTriggered = true;
             ActivateInteraction();
         }
-        Debug.Log("enter dayo");
-    }
-    public void OnHitStay()
-    {
-        Debug.Log("junstin bibber lmao");
+        Debug.Log("light hit");
     }
 
+    //Light Stay (Not Used) 
+    public void OnHitStay()
+    {
+        Debug.Log("temp");
+    }
+
+    //If Not Contacted by Light
     public void OnHitExit()
     {
         isContacted = false;
         DeactivateInteraction();
-        Debug.Log("exits");
+        Debug.Log("light exit");
     }
 
     public virtual void ActivateInteraction()
     {
-
+        //placeholder
     }
 
     public virtual void DeactivateInteraction()
     {
-
+        //placeholder
     }
 }

@@ -8,18 +8,19 @@ using static UnityEngine.GraphicsBuffer;
 
 public class MagicalLight : MonoBehaviour
 {
-    [SerializeField] private LayerMask lightIgnore;
-    [SerializeField] private LayerMask checkMask;
+    [SerializeField] private LayerMask lightCheck;
+    [SerializeField] private LayerMask contactCheck;
     private Mesh mesh;
     private Vector3 origin;
 
+   //Light Ray Variables
     private float fov;
     private float startingAngle;
     float viewDistance = 5f;
 
     public bool isToggled = false;
-    private bool hitFlag = false;
-    private GameObject hitObject;
+    private bool hitFlag = false; //Contact Flag
+    private GameObject hitObject; //Object being contacted by Light
 
     private void Start()
     {
@@ -33,19 +34,19 @@ public class MagicalLight : MonoBehaviour
     {
         if (isToggled)
         {
-            GenerateLight();
+            GenerateLight(); //Activate Light when toggled
         }
 
         else
         {
             if (hitObject != null)
             {
-                hitObject.SendMessage("OnHitExit");
+                hitObject.SendMessage("OnHitExit"); //Notify Special Object when Light is no longer contacting 
                 hitFlag = false;
                 hitObject = null;
             }
 
-            mesh.Clear();
+            mesh.Clear(); //Turn off Light
         }
     }
     
@@ -73,29 +74,30 @@ public class MagicalLight : MonoBehaviour
         for (int i = 0; i <= rayCount; i++)
         {
             Vector3 vertex;
-            RaycastHit2D RaycastHit2D = Physics2D.Raycast(origin, GetVectorFromAngle(angle), viewDistance, lightIgnore);
+            RaycastHit2D RaycastHit2D = Physics2D.Raycast(origin, GetVectorFromAngle(angle), viewDistance, lightCheck);
             
             //Midpoint Collision Check
             if(i == rayCount / 2)
             {
-                RaycastHit2D raycheck = Physics2D.Raycast(origin, GetVectorFromAngle(angle), viewDistance, checkMask);
-                if (raycheck.collider != null && raycheck.transform.CompareTag("SpecialObject"))
+                RaycastHit2D raycheck = Physics2D.Raycast(origin, GetVectorFromAngle(angle), viewDistance, contactCheck);
+                if (raycheck.collider != null && raycheck.transform.CompareTag("SpecialObject")) //If Check hits a special Object
                 {
                     GameObject LO = raycheck.transform.gameObject;
 
-                    // If no registred hitobject => Entering
+                    // If no registered hitObject => Notify Entering Object
                     if (hitObject == null)
                     {
                         LO.SendMessage("OnHitEnter");
                     }
 
-                    // If hit object is the same as the registered one => Stay
+                    /*(Not Used) If hitObject is the same as the registered one => Notify OnStay                    
                     else if (hitObject.GetInstanceID() == LO.GetInstanceID())
                     {
-                        //hitObject.SendMessage("OnHitStay");
+                        hitObject.SendMessage("OnHitStay");
                     }
+                    */
 
-                    // If new object hit => Exit last + Enter new
+                    // If new hitObject hit => Notify OnExit Previous Object + OnEnter New Object
                     else
                     {
                         hitObject.SendMessage("OnHitExit");
@@ -106,7 +108,7 @@ public class MagicalLight : MonoBehaviour
                     hitObject = LO;
                 }
 
-                // No object hit => Exit last one
+                // No new Object hit => Notify OnExit & Clear Check Variables
                 else if (hitFlag)
                 {
                     hitObject.SendMessage("OnHitExit");
