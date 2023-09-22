@@ -4,23 +4,43 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    //Player Components
     [SerializeField] private MagicalLight ML;
     public Rigidbody2D RB;
+    public GameObject eyes;
+    public GameObject glow;
+    public Animator animator;
+    
+    //Player Variables
     Vector2 movement;
     public float moveSpeed = 5f;
-    public int lightLevel = 1;//Level of Magical Light
+    public int lightLevel;//Level of Magical Light
 
     #region Player Movement
     void Update()
     {
-        Look();
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
+        animator.SetFloat("Horizontal", movement.x);
+        animator.SetFloat("Vertical", movement.y);
+        animator.SetFloat("Speed", movement.sqrMagnitude);
+
         //Toggle Flashlight
-        if (Time.timeScale == 1 && Input.GetMouseButtonDown(0))
+        if (Time.timeScale == 1)
         {
-            ML.isToggled = !ML.isToggled;
+            Look();
+
+            if (lightLevel != 0 && Input.GetMouseButtonDown(0))
+            {
+                ML.isToggled = !ML.isToggled;
+            }
+        }
+
+        //Activate Glow when light is picked up
+        if(lightLevel != 0)
+        {
+            glow.SetActive(true);
         }
     }
 
@@ -30,7 +50,7 @@ public class PlayerScript : MonoBehaviour
         RB.MovePosition(RB.position + movement * moveSpeed * Time.fixedDeltaTime);
 
         //Player Look Direction
-        ML.SetAimDirection(this.transform.up);
+        ML.SetAimDirection(eyes.transform.up);
         ML.SetOrigin(transform.position);
     }
 
@@ -41,7 +61,7 @@ public class PlayerScript : MonoBehaviour
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
         Vector2 direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
-        transform.up = direction;      
+        eyes.transform.up = direction;      
     }
     #endregion
 }

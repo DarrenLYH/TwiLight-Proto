@@ -27,7 +27,7 @@ public class MagicalLight : MonoBehaviour
         //Create Mesh and Locate MeshFilter
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
-        fov = 60f;
+        fov = 50f;
     }
 
     private void LateUpdate()
@@ -90,12 +90,11 @@ public class MagicalLight : MonoBehaviour
                         LO.SendMessage("OnHitEnter");
                     }
 
-                    /*(Not Used) If hitObject is the same as the registered one => Notify OnStay                    
+                    //If hitObject is the same as the registered one => Notify OnStay                    
                     else if (hitObject.GetInstanceID() == LO.GetInstanceID())
                     {
                         hitObject.SendMessage("OnHitStay");
                     }
-                    */
 
                     // If new hitObject hit => Notify OnExit Previous Object + OnEnter New Object
                     else
