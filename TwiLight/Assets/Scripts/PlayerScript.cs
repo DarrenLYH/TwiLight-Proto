@@ -31,9 +31,14 @@ public class PlayerScript : MonoBehaviour
         {
             Look();
 
-            if (lightLevel != 0 && Input.GetMouseButtonDown(0))
+            if (lightLevel != 0 && Input.GetMouseButton(0))
             {
-                ML.isToggled = !ML.isToggled;
+                ML.isToggled = true;
+            }
+
+            else
+            {
+                ML.isToggled = false;
             }
         }
 

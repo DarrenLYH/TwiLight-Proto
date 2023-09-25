@@ -7,6 +7,7 @@ public class CrystalPylon : MonoBehaviour
 {
     //Beam Properties
     [SerializeField] private LayerMask contactCheck;
+    [SerializeField] private LayerMask activeEntityCheck;
     public LineRenderer LR;
     public int beamDirection;
     Vector2 direction;
@@ -37,6 +38,7 @@ public class CrystalPylon : MonoBehaviour
         if(isInteractible && Input.GetKeyDown(KeyCode.E))
         {
             MovePylon();
+            GameController.instance.HideInteractPrompt();
         }
     }
 
@@ -55,7 +57,6 @@ public class CrystalPylon : MonoBehaviour
 
     public void MovePylon()
     {
-        GameController.instance.DisplayInteractPrompt();
         if (currentPos < positions.Count() - 1 && cycleForward)
         {
             currentPos++;
@@ -87,7 +88,10 @@ public class CrystalPylon : MonoBehaviour
 
     public void TriggerPylon()
     {
-        EmitPylonBeam();
+        if (!isMoving)
+        {
+            Invoke("EmitPylonBeam", 0.5f);
+        }
     }
 
     public void ShutoffPylon()
@@ -100,7 +104,7 @@ public class CrystalPylon : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         LR.positionCount = 0;
-        RaycastHit2D hit = Physics2D.Raycast(LR.transform.position, direction, 10f, contactCheck);
+        RaycastHit2D hit = Physics2D.Raycast(LR.transform.position, direction, 10f, activeEntityCheck);
 
         //If Colliding with Pylon > Trigger
         if (hit.collider && hit.collider.CompareTag("Pylon"))
@@ -113,13 +117,21 @@ public class CrystalPylon : MonoBehaviour
             hit.collider.gameObject.SendMessage("ShutoffReceiver");
         }
 
+        int newLayer = LayerMask.NameToLayer("Pylon");
+        gameObject.layer = newLayer;
         isActive = false;
         yield break;
     }
 
     public void EmitPylonBeam()
     {
+        //Update Pylon State
+        GameController.instance.HideInteractPrompt();
         isActive = true;
+        int newLayer = LayerMask.NameToLayer("PylonActivated");
+        gameObject.layer = newLayer;
+
+        //Generate Beam
         LR.positionCount = 2;
         switch (beamDirection)
         {
@@ -189,6 +201,10 @@ public class CrystalPylon : MonoBehaviour
     void OnCollisionExit2D(Collision2D collision)
     {
         isTouching = false;
+        //if (isMovable && !isMoving && !isActive)
+        {
+            GameController.instance.HideInteractPrompt();
+        }
     }
     #endregion
 }

@@ -6,11 +6,6 @@ using UnityEngine;
 
 public class PickupObject: MonoBehaviour
 {
-    //Object Parameters
-    public string objName;
-    //insert sprite here
-    public TextMeshPro nametag;
-
     bool isTouching = false;
 
     //temp
@@ -31,7 +26,7 @@ public class PickupObject: MonoBehaviour
 
     public void InstantiateObject()
     {
-        nametag.SetText(objName);
+
     }
 
     public void DoObjectEffect() //Temporarily its just the level up
@@ -39,6 +34,11 @@ public class PickupObject: MonoBehaviour
         Debug.Log("oh hai");
         GameController.instance.PlayerLevelUp();
         GameController.instance.DisplayHeldItem();
+
+        if(GameController.instance.GetPlayerLevel() == 3)
+        {
+            GameController.instance.ToggleEndScreen();
+        }
     }
 
     #region Contact Check
@@ -50,7 +50,7 @@ public class PickupObject: MonoBehaviour
     void OnCollisionExit2D(Collision2D collision)
     {
         isTouching = false;
-        GameController.instance.DisplayPickupPrompt();
+        GameController.instance.HidePickupPrompt();
     }
     #endregion
 }

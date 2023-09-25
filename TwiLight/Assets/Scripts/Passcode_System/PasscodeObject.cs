@@ -43,6 +43,7 @@ public class PasscodeObject : MonoBehaviour
 
             //Update Screen State
             PasscodeScreen.gameObject.SetActive(true);
+            GameController.instance.HideInteractPrompt();
             isOpen = !open;
         }
 
@@ -62,7 +63,7 @@ public class PasscodeObject : MonoBehaviour
     {
         //Disable Object and Close Screen
         isTouching = false;
-        GameController.instance.DisplayInteractPrompt();
+        GameController.instance.HideInteractPrompt();
         ToggleScreen(isOpen);
         
         //insert unlock audio here
@@ -83,7 +84,7 @@ public class PasscodeObject : MonoBehaviour
         if (!isUnlocked)
         {
             isTouching = false;
-            GameController.instance.DisplayInteractPrompt();
+            GameController.instance.HideInteractPrompt();
         }
     }
     #endregion

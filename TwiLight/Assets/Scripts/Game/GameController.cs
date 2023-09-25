@@ -11,14 +11,16 @@ public class GameController : MonoBehaviour
     public PlayerScript PS;
 
     //UI Elements
-    public GameObject heldItem;
+    public GameObject PauseMenu;
+    public GameObject EndScreen; //temp
+
+    public GameObject heldItem;  
     public Sprite[] heldSprites;
     public TextMeshProUGUI levelIndicator;
     public GameObject interactPrompt;
-    bool ipActive = false;
     public GameObject pickupPrompt;
-    bool ppActive = false;
 
+    //Game States
     public bool isPaused = false;
 
     private void Awake()
@@ -52,71 +54,95 @@ public class GameController : MonoBehaviour
         //Pause Function Check
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseGame(isPaused);
+            TogglePause();
         }
     }
 
     #region Game Functions
 
-    //Pause Function
-    public void PauseGame(bool paused)
+    //Pause
+    public void TogglePause()
     {
-        if (!paused)
+        SetPause(!isPaused);
+    }
+
+    public void SetPause(bool status)
+    {
+        isPaused = status;
+
+        if (isPaused)
         {
+            PauseMenu.SetActive(true);
             Time.timeScale = 0f;
             isPaused = true;
         }
 
         else
         {
+            PauseMenu.SetActive(false);
+            EndScreen.SetActive(false);//temp
             Time.timeScale = 1;
             isPaused = false;
         }
+    }
+
+    //Temporary End Screen
+    public void ToggleEndScreen()
+    {
+            EndScreen.SetActive(true);
+            Time.timeScale = 0f;
+            isPaused = true;
+    }
+
+    //Game Over (Currently Unused)
+    public void GameOver()
+    {
+        Time.timeScale = 0f;
+        //deathMenu.SetActive(true);
+    }
+
+    //Unload Instance when returning to Title
+    public void SelfDestruct()
+    {
+        Destroy(gameObject);
+        instance = null;
     }
     #endregion
 
     #region UI Functions
     public void DisplayHeldItem()
     {
-        int i = PS.lightLevel - 1;
-        heldItem.GetComponent<Image>().sprite = heldSprites[i];
+        if(PS.lightLevel > 0)
+        {
+            int i = PS.lightLevel - 1;
+            heldItem.GetComponent<Image>().sprite = heldSprites[i];
+        }
     }
 
     public void DisplayLightLevel()
     {
-        levelIndicator.SetText("Light Level: " + PS.lightLevel);   
+        levelIndicator.SetText("Light Level: " + PS.lightLevel);
     }
 
     public void DisplayInteractPrompt()
     {
-        if (!ipActive)
-        {
-            interactPrompt.SetActive(true);
-        }
+        interactPrompt.SetActive(true);
+    }
 
-        else
-        {
-            interactPrompt.SetActive(false);
-        }
-
-        ipActive = !ipActive;
+    public void HideInteractPrompt()
+    {
+        interactPrompt.SetActive(false);
     }
 
     public void DisplayPickupPrompt()
     {
-        if (!ppActive)
-        {
-            pickupPrompt.SetActive(true);
-        }
-
-        else
-        {
-            pickupPrompt.SetActive(false);
-        }
-
-        ppActive = !ppActive;
+        pickupPrompt.SetActive(true);
     }
 
+    public void HidePickupPrompt()
+    {
+        pickupPrompt.SetActive(false);
+    }
     #endregion
 
     #region Player Functions
@@ -125,6 +151,11 @@ public class GameController : MonoBehaviour
     {
         PS.lightLevel += 1;
         DisplayLightLevel();
+    }
+
+    public int GetPlayerLevel()
+    {
+        return PS.lightLevel;
     }
     #endregion
 }

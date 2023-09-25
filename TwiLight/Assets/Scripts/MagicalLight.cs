@@ -16,7 +16,7 @@ public class MagicalLight : MonoBehaviour
    //Light Ray Variables
     private float fov;
     private float startingAngle;
-    float viewDistance = 5f;
+    float viewDistance = 2f;
 
     public bool isToggled = false;
     private bool hitFlag = false; //Contact Flag
@@ -28,6 +28,25 @@ public class MagicalLight : MonoBehaviour
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
         fov = 50f;
+    }
+
+    //Update Light Distance Based on Level
+    private void Update()
+    {
+        if(GameController.instance.GetPlayerLevel() == 2)
+        {
+            viewDistance = 3f;
+        }
+
+        else if(GameController.instance.GetPlayerLevel() == 3)
+        {
+            viewDistance = 5f;
+        }
+
+        else
+        {
+            viewDistance = 2f;
+        }
     }
 
     private void LateUpdate()

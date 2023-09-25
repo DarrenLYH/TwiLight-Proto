@@ -27,7 +27,6 @@ public class LO_Wall : LightableObject
 
         while(isContacted != false)
         {
-            Debug.Log("im waitin hea");
             yield return null;
         }
 
@@ -35,7 +34,6 @@ public class LO_Wall : LightableObject
         
         if (isTriggered == false)
         {
-            Debug.Log("sike nigga");
             ToggleWall(true);
             yield break;
         }   

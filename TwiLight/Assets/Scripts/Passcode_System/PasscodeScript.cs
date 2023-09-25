@@ -73,6 +73,7 @@ public class PasscodeScript : MonoBehaviour
 
     public void NumberUp(string position) //"Scroll" Number Up
     {
+        //Rollover
         if (lockNumbers[position] == 9)
         {
             lockNumbers[position] = 0;
@@ -83,6 +84,7 @@ public class PasscodeScript : MonoBehaviour
 
     public void NumberDown(string position) //"Scroll" Number Down
     {
+        //Rollover
         if (lockNumbers[position] == 0)
         {
             lockNumbers[position] = 9;

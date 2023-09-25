@@ -15,15 +15,15 @@ TagManager:
   - Player
   - Water
   - UI
-  - Pylon
+  - 
   - Items
   - Mask
   - Invis - Vis
   - Vis - Invis
   - Objects
   - Black
-  - 
-  - 
+  - Pylon
+  - PylonActivated
   - 
   - 
   - 
@@ -44,4 +44,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Top
+    uniqueID: 532288873
     locked: 0

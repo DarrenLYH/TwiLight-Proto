@@ -15,7 +15,7 @@ public class LO_CrystalActivator : LightableObject
     {
         if(isContacted && isTriggered)
         {
-            EmitBeam();
+            //EmitBeam();
         }
     }
     public override void OnHitEnter()
@@ -25,6 +25,7 @@ public class LO_CrystalActivator : LightableObject
         if (levelRequirement <= player.GetComponent<PlayerScript>().lightLevel)
         {
             isTriggered = true;
+            EmitBeam();
         }
 
         Debug.Log("Crystal Activated");
