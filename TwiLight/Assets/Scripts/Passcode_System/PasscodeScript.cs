@@ -45,7 +45,7 @@ public class PasscodeScript : MonoBehaviour
         if(checkcode == passcode)//Match
         {
             Status.SetText("UNLOCKED!");
-            refObject.isUnlocked = true;
+            refObject.isSolved = true;
         }
 
         else //No Match
@@ -93,4 +93,28 @@ public class PasscodeScript : MonoBehaviour
         else lockNumbers[position] -= 1;
     }
     #endregion
+
+    public void DisplayScreen()
+    {
+        Time.timeScale = 0;
+        this.gameObject.SetActive(true);
+        GameController.instance.HideInteractPrompt();
+        GameController.instance.inScreenUI = true;
+    }
+
+    public void HideScreen()
+    {
+        this.gameObject.SetActive(false);
+
+        //Display Interact Prompt if unsolved
+        if (!refObject.GetComponent<PasscodeObject>().isSolved)
+        {
+            GameController.instance.DisplayInteractPrompt();
+        }
+
+        GameController.instance.inScreenUI = false;
+        ResetNumber();    //clear onscreen Code
+        refObject = null; //clear Referenced Object
+        Time.timeScale = 1;
+    }
 }

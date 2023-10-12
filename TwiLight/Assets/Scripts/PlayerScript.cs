@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
@@ -14,9 +15,9 @@ public class PlayerScript : MonoBehaviour
     //Player Variables
     Vector2 movement;
     public float moveSpeed = 5f;
-    public int lightLevel;//Level of Magical Light
+    public int lightLevel;   //Maximum Level of Magical Light
+    public int currentLight; //Currently Held Light
 
-    #region Player Movement
     void Update()
     {
         movement.x = Input.GetAxisRaw("Horizontal");
@@ -47,6 +48,12 @@ public class PlayerScript : MonoBehaviour
         {
             glow.SetActive(true);
         }
+
+        //Switch between held Light sources
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            SwitchLight();
+        }
     }
 
     void FixedUpdate()
@@ -68,5 +75,19 @@ public class PlayerScript : MonoBehaviour
         Vector2 direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
         eyes.transform.up = direction;      
     }
-    #endregion
+
+    public void SwitchLight()
+    {
+        if(lightLevel != 0)
+        {
+            currentLight++;
+
+            if(currentLight > lightLevel)
+            {
+                currentLight = 1;
+            }
+
+            GameController.instance.DisplayHeldItem();
+        }
+    }
 }

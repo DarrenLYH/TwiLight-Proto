@@ -11,20 +11,20 @@ public class PasscodeObject : MonoBehaviour
 
     //Object Parameters
     protected bool isTouching = false; //Player touching object
-    public bool isUnlocked = false;
+    public bool isSolved = false;
 
     // Update is called once per frame
     public void Update()
     {
         //If Object has not been unlocked and Player is interacting
-        if (!isUnlocked && isTouching && Input.GetKeyDown(KeyCode.E))
+        if (!isSolved && isTouching && Input.GetKeyDown(KeyCode.E))
         {
             ToggleScreen(isOpen);
             //insert lock sound here
         }
         
         //If Object is unlocked
-        else if(isUnlocked && isTouching)
+        else if(isSolved && isTouching)
         {
             DoUnlockAction();
         }
@@ -36,14 +36,10 @@ public class PasscodeObject : MonoBehaviour
         PasscodeScript PS = PasscodeScreen.GetComponent<PasscodeScript>();
 
         if (!open)
-        {
-            Time.timeScale = 0;    
+        {    
             PS.passcode = objPasscode; //Set Passcode to current object passcode
             PS.refObject = this;       //Set Referenced Object to current object
-
-            //Update Screen State
-            PasscodeScreen.gameObject.SetActive(true);
-            GameController.instance.HideInteractPrompt();
+            PS.DisplayScreen();        //Update Screen State
             isOpen = !open;
         }
 
@@ -51,11 +47,7 @@ public class PasscodeObject : MonoBehaviour
         {
             //Update Screen State
             isOpen = !open;
-            PasscodeScreen.SetActive(false);
-
-            PS.ResetNumber();    //clear onscreen Code
-            PS.refObject = null; //clear Referenced Object
-            Time.timeScale = 1;
+            PS.HideScreen();
         }
     }
 
@@ -63,7 +55,7 @@ public class PasscodeObject : MonoBehaviour
     {
         //Disable Object and Close Screen
         isTouching = false;
-        GameController.instance.HideInteractPrompt();
+        //GameController.instance.HideInteractPrompt();
         ToggleScreen(isOpen);
         
         //insert unlock audio here
@@ -73,7 +65,7 @@ public class PasscodeObject : MonoBehaviour
     #region Contact Check
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!isUnlocked)
+        if (!isSolved)
         {
             isTouching = true;
             GameController.instance.DisplayInteractPrompt();
@@ -81,7 +73,7 @@ public class PasscodeObject : MonoBehaviour
     }
     void OnCollisionExit2D(Collision2D collision)
     {
-        if (!isUnlocked)
+        if (!isSolved)
         {
             isTouching = false;
             GameController.instance.HideInteractPrompt();

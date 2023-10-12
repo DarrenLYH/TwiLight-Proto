@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,6 +23,7 @@ public class GameController : MonoBehaviour
 
     //Game States
     public bool isPaused = false;
+    public bool inScreenUI = false;
 
     private void Awake()
     {
@@ -46,13 +48,12 @@ public class GameController : MonoBehaviour
 
         //Update UI
         DisplayHeldItem();
-        DisplayLightLevel();
     }
 
     public void Update()
     {
         //Pause Function Check
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !inScreenUI)
         {
             TogglePause();
         }
@@ -114,14 +115,11 @@ public class GameController : MonoBehaviour
     {
         if(PS.lightLevel > 0)
         {
-            int i = PS.lightLevel - 1;
+            int i = PS.currentLight - 1;
             heldItem.GetComponent<Image>().sprite = heldSprites[i];
         }
-    }
 
-    public void DisplayLightLevel()
-    {
-        levelIndicator.SetText("Light Level: " + PS.lightLevel);
+        levelIndicator.SetText("Current Torch: " + PS.currentLight);
     }
 
     public void DisplayInteractPrompt()
@@ -150,12 +148,18 @@ public class GameController : MonoBehaviour
     public void PlayerLevelUp()
     {
         PS.lightLevel += 1;
-        DisplayLightLevel();
+        PS.currentLight = PS.lightLevel;
+        DisplayHeldItem();
     }
 
     public int GetPlayerLevel()
     {
         return PS.lightLevel;
+    }
+
+    public int GetPlayerLight()
+    {
+        return PS.currentLight;
     }
     #endregion
 }

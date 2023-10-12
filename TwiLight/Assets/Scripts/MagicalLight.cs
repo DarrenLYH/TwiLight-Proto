@@ -33,19 +33,14 @@ public class MagicalLight : MonoBehaviour
     //Update Light Distance Based on Level
     private void Update()
     {
-        if(GameController.instance.GetPlayerLevel() == 2)
+        if(GameController.instance.GetPlayerLight() == 1)
         {
-            viewDistance = 3f;
-        }
-
-        else if(GameController.instance.GetPlayerLevel() == 3)
-        {
-            viewDistance = 5f;
+            viewDistance = 2.5f;
         }
 
         else
         {
-            viewDistance = 2f;
+            viewDistance = 3.5f;
         }
     }
 
@@ -68,7 +63,7 @@ public class MagicalLight : MonoBehaviour
             mesh.Clear(); //Turn off Light
         }
     }
-    
+
     #region Light Emission
     public void GenerateLight()
     {

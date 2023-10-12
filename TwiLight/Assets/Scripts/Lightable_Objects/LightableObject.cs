@@ -22,7 +22,7 @@ public abstract class LightableObject : MonoBehaviour
     {
         isContacted = true;
         //Check Activation Requirements
-        if (levelRequirement <= player.GetComponent<PlayerScript>().lightLevel)
+        if (levelRequirement == player.GetComponent<PlayerScript>().currentLight)
         {
             isTriggered = true;
             ActivateInteraction();

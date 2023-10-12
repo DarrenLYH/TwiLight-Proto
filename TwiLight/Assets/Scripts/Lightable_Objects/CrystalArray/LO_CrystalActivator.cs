@@ -11,21 +11,34 @@ public class LO_CrystalActivator : LightableObject
     public int beamDirection;
     Vector2 direction;
 
-    private void Update()
+    public bool isToggled;
+
+    public void LateUpdate()
     {
-        if(isContacted && isTriggered)
+        if (isToggled)
         {
-            //EmitBeam();
+            EmitBeam();
+        }
+
+        else
+        {
+            isTriggered = false;
+            StartCoroutine(DelayedShutoff());
         }
     }
+
+    public void ToggleActivator()
+    {
+        isToggled = !isToggled;
+    }
+
     public override void OnHitEnter()
     {
         isContacted = true;
         //Check Activation Requirements
         if (levelRequirement <= player.GetComponent<PlayerScript>().lightLevel)
         {
-            isTriggered = true;
-            EmitBeam();
+            ToggleActivator();
         }
 
         Debug.Log("Crystal Activated");
@@ -47,28 +60,29 @@ public class LO_CrystalActivator : LightableObject
     #region Beam Emitter
     public void EmitBeam()
     {
+        isTriggered = true;
         LR.positionCount = 2;
 
         switch (beamDirection)
         {
             //Beam Up
-            case 1:
+            case 0:
                 direction = Vector2.up;
                 break;
                 
 
             //Beam Down
-            case 2:
+            case 1:
                 direction = Vector2.down;
                 break;
 
             //Beam Left
-            case 3:
+            case 2:
                 direction = Vector2.left;
                 break;
 
             //Beam Right
-            case 4:
+            case 3:
                 direction = Vector2.right;
                 break;
 
@@ -77,13 +91,14 @@ public class LO_CrystalActivator : LightableObject
         }
                 
         //Raycast in the Beam Direction to Check Collision
-        RaycastHit2D hit = Physics2D.Raycast(LR.transform.position, direction, 10f, contactCheck);
+        RaycastHit2D hit = Physics2D.Raycast(LR.transform.position, direction, 20f, contactCheck);
 
         //If Colliding with Pylon > Trigger
         if (hit.collider && hit.collider.CompareTag("Pylon"))
         {
             LR.SetPosition(1, LR.transform.InverseTransformPoint(hit.point));
             hit.collider.gameObject.SendMessage("TriggerPylon");
+            Debug.Log("pew pew");
         }
 
         else if (hit.collider && hit.collider.CompareTag("Receiver"))
@@ -106,7 +121,7 @@ public class LO_CrystalActivator : LightableObject
 
     public void Shutoff()
     {
-        RaycastHit2D hit = Physics2D.Raycast(LR.transform.position, direction, 10f, contactCheck);
+        RaycastHit2D hit = Physics2D.Raycast(LR.transform.position, direction, 20f, contactCheck);
 
         //If Colliding with Pylon > Trigger
         if (hit.collider && hit.collider.CompareTag("Pylon"))
@@ -122,7 +137,7 @@ public class LO_CrystalActivator : LightableObject
 
     IEnumerator DelayedShutoff()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         LR.positionCount = 0;
         Shutoff();

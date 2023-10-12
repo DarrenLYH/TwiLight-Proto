@@ -5,27 +5,41 @@ using UnityEngine;
 
 public class CrystalPylon : MonoBehaviour
 {
-    //Beam Properties
+    //Pylon Properties
+    public bool isInteractible;
+    public bool isMovable;
+    public bool isMoving = false;
+    public bool isRotatable;
+    bool isTouching; //Check for player contact
+    public Sprite[] pylonStates;
+
+    //Movement Variables
+    public GameObject[] positions; //Movable positions
+    int currentPos = 0;
+    Vector3 destination;
+    bool cycleForward = true;
+
+    //Beam Variables
     [SerializeField] private LayerMask contactCheck;
     [SerializeField] private LayerMask activeEntityCheck;
     public LineRenderer LR;
     public int beamDirection;
     Vector2 direction;
-    bool isActive;
-    
-    public GameObject[] positions;
-    int currentPos = 0;
-    Vector3 destination;
-    bool cycleForward = true;
+    bool isActive; //if the beam is currently on
 
-    bool isInteractible;
-    public bool isMovable;
-    public bool isMoving = false;
-    bool isTouching;
-
+    private void Awake()
+    {
+        gameObject.GetComponent<SpriteRenderer>().sprite = pylonStates[beamDirection];
+    }
     private void Update()
     {
-        if(isTouching && isMovable && !isMoving && !isActive)
+        #region Interactibility Check
+        if(isMovable && isTouching && !isMoving && !isActive)
+        {
+            isInteractible = true;
+        }
+
+        else if (isRotatable && isTouching && !isMoving && !isActive)
         {
             isInteractible = true;
         }
@@ -34,10 +48,19 @@ public class CrystalPylon : MonoBehaviour
         {
             isInteractible = false;
         }
+        #endregion
 
-        if(isInteractible && Input.GetKeyDown(KeyCode.E))
+        //Move Pylon
+        if (isMovable && isInteractible && Input.GetKeyDown(KeyCode.E))
         {
             MovePylon();
+            GameController.instance.HideInteractPrompt();
+        }
+
+        //Rotate Pylon
+        if (isRotatable && isInteractible && Input.GetKeyDown(KeyCode.E))
+        {
+            RotatePylon();
             GameController.instance.HideInteractPrompt();
         }
     }
@@ -57,12 +80,16 @@ public class CrystalPylon : MonoBehaviour
 
     public void MovePylon()
     {
+        isMoving = true; //Update Pylon State
+
+        //Cycle position forward
         if (currentPos < positions.Count() - 1 && cycleForward)
         {
             currentPos++;
             destination = positions[currentPos].transform.position;
         }
 
+        //Change direction and cycle position backward
         else if (currentPos == positions.Count() - 1)
         {
             cycleForward = false;
@@ -70,57 +97,44 @@ public class CrystalPylon : MonoBehaviour
             destination = positions[currentPos].transform.position;
         }
 
+        //Cycle position backward
         else if (currentPos > 0 && !cycleForward)
         {
             currentPos--;
             destination = positions[currentPos].transform.position;
         }
 
+        //Change direction and cycle position forward
         else if (currentPos == 0 && !cycleForward)
         {
             cycleForward = true;
             currentPos++;
             destination = positions[currentPos].transform.position;
         }
+    }
 
-        isMoving = true;
+    public void RotatePylon()
+    {
+        //Switch Beam Direction
+        beamDirection += 1;
+
+        //Loop around if out of index
+        if(beamDirection > 3)
+        {
+            beamDirection = 0;
+        }
+
+        //Set Sprite Direction
+        gameObject.GetComponent<SpriteRenderer>().sprite = pylonStates[beamDirection];
     }
 
     public void TriggerPylon()
     {
         if (!isMoving)
         {
-            Invoke("EmitPylonBeam", 0.5f);
+            Invoke("EmitPylonBeam", 1f);
+            Debug.Log("abaabababa");
         }
-    }
-
-    public void ShutoffPylon()
-    {
-        StartCoroutine(TurnOff());
-    }
-
-    IEnumerator TurnOff()
-    {
-        yield return new WaitForSeconds(0.5f);
-
-        LR.positionCount = 0;
-        RaycastHit2D hit = Physics2D.Raycast(LR.transform.position, direction, 10f, activeEntityCheck);
-
-        //If Colliding with Pylon > Trigger
-        if (hit.collider && hit.collider.CompareTag("Pylon"))
-        {
-            hit.collider.gameObject.SendMessage("ShutoffPylon");
-        }
-
-        else if (hit.collider && hit.collider.CompareTag("Receiver"))
-        {
-            hit.collider.gameObject.SendMessage("ShutoffReceiver");
-        }
-
-        int newLayer = LayerMask.NameToLayer("Pylon");
-        gameObject.layer = newLayer;
-        isActive = false;
-        yield break;
     }
 
     public void EmitPylonBeam()
@@ -136,23 +150,23 @@ public class CrystalPylon : MonoBehaviour
         switch (beamDirection)
         {
             //Beam Up
-            case 1:
+            case 0:
                 direction = Vector2.up;
                 break;
 
 
             //Beam Down
-            case 2:
+            case 1:
                 direction = Vector2.down;
                 break;
 
             //Beam Left
-            case 3:
+            case 2:
                 direction = Vector2.left;
                 break;
 
             //Beam Right
-            case 4:
+            case 3:
                 direction = Vector2.right;
                 break;
 
@@ -161,7 +175,7 @@ public class CrystalPylon : MonoBehaviour
         }
 
         //Raycast in the Beam Direction to Check Collision
-        RaycastHit2D hit = Physics2D.Raycast(LR.transform.position, direction, 10f, contactCheck);
+        RaycastHit2D hit = Physics2D.Raycast(LR.transform.position, direction, 20f, contactCheck);
 
         //If Colliding with Pylon > Trigger
         if (hit.collider && hit.collider.CompareTag("Pylon"))
@@ -189,22 +203,55 @@ public class CrystalPylon : MonoBehaviour
         }
     }
 
+    public void ShutoffPylon()
+    {
+        StartCoroutine(TurnOff());
+    }
+
+    IEnumerator TurnOff()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        LR.positionCount = 0;
+        RaycastHit2D hit = Physics2D.Raycast(LR.transform.position, direction, 20f, activeEntityCheck);
+
+        //If Colliding with Pylon > Trigger
+        if (hit.collider && hit.collider.CompareTag("Pylon"))
+        {
+            hit.collider.gameObject.SendMessage("ShutoffPylon");
+        }
+
+        else if (hit.collider && hit.collider.CompareTag("Receiver"))
+        {
+            hit.collider.gameObject.SendMessage("ShutoffReceiver");
+        }
+
+        int newLayer = LayerMask.NameToLayer("Pylon");
+        gameObject.layer = newLayer;
+        isActive = false;
+        yield break;
+    }
+
     #region Contact Check
     void OnCollisionEnter2D(Collision2D collision)
     {
         isTouching = true;
-        if (isMovable && !isMoving && !isActive)
+        if (!isMoving && !isActive && isMovable)
+        {
+            GameController.instance.DisplayInteractPrompt();
+        }
+
+        else if (!isMoving && !isActive && isRotatable)
         {
             GameController.instance.DisplayInteractPrompt();
         }
     }
+
     void OnCollisionExit2D(Collision2D collision)
     {
         isTouching = false;
-        //if (isMovable && !isMoving && !isActive)
-        {
-            GameController.instance.HideInteractPrompt();
-        }
+        GameController.instance.HideInteractPrompt();
+      
     }
     #endregion
 }
