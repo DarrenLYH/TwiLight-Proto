@@ -13,6 +13,8 @@ public class LO_CrystalActivator : LightableObject
 
     public bool isToggled;
 
+    public delegate void onActivation();
+
     public void LateUpdate()
     {
         if (isToggled)
@@ -36,7 +38,7 @@ public class LO_CrystalActivator : LightableObject
     {
         isContacted = true;
         //Check Activation Requirements
-        if (levelRequirement <= player.GetComponent<PlayerScript>().lightLevel)
+        if (lightRequirement <= player.GetComponent<PlayerScript>().lightLevel)
         {
             ToggleActivator();
         }

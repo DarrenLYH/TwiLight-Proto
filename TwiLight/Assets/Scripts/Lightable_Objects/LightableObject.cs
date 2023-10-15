@@ -7,7 +7,7 @@ using UnityEngine.Rendering;
 public abstract class LightableObject : MonoBehaviour
 {
     public GameObject player;
-    public int levelRequirement;     //Magic Light Level required to activate Object
+    public int lightRequirement;     //Magic Light Level required to activate Object
     public bool isContacted = false; //Whether the Object is contacted by Light or not
     public bool isTriggered;         //Whether the Object has been activated / is currently activated
 
@@ -22,7 +22,7 @@ public abstract class LightableObject : MonoBehaviour
     {
         isContacted = true;
         //Check Activation Requirements
-        if (levelRequirement == player.GetComponent<PlayerScript>().currentLight)
+        if (lightRequirement == GameController.instance.GetPlayerLight())
         {
             isTriggered = true;
             ActivateInteraction();

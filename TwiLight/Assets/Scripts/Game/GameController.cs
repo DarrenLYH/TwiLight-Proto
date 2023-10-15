@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     public static GameController instance;
     public GameObject player;
     public PlayerScript PS;
+    public InventoryScript INV;
 
     //UI Elements
     public GameObject PauseMenu;
@@ -45,6 +46,7 @@ public class GameController : MonoBehaviour
         //Get Player
         player = GameObject.FindGameObjectWithTag("Player");
         PS = player.GetComponent<PlayerScript>();
+        INV = GetComponentInChildren<InventoryScript>();
 
         //Update UI
         DisplayHeldItem();

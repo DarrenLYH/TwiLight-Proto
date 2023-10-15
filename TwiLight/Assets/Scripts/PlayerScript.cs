@@ -50,7 +50,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         //Switch between held Light sources
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             SwitchLight();
         }

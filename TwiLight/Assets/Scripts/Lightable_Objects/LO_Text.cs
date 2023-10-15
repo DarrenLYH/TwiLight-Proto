@@ -9,7 +9,7 @@ public class LO_Text : LightableObject
     private void Awake()
     {  
         //Active by Default if Lv1 Text
-        if(levelRequirement <= 1)
+        if(lightRequirement <= 1)
         {
             ActivateInteraction();
           

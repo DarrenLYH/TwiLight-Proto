@@ -1,17 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Drawing;
 using TMPro;
+using UnityEditor.U2D;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PickupObject: MonoBehaviour
+public class PickupObject : MonoBehaviour
 {
+    //Reference to Player Inventory
+    protected InventoryScript playerInventory;
+
+    //Item Values
+    public string itemName;
+    public Sprite itemImage;
     bool isTouching = false;
 
     //temp
-    private void Awake()
+    private void Start()
     {
-        InstantiateObject();
+        playerInventory = GameController.instance.GetComponentInChildren<InventoryScript>();
+        //InstantiateObject();
     }
 
     private void Update()
@@ -20,25 +30,18 @@ public class PickupObject: MonoBehaviour
         if (isTouching && Input.GetKeyDown(KeyCode.E))
         {
             DoObjectEffect();
-            Destroy(this.gameObject);
         }
     }
 
     public void InstantiateObject()
     {
-
+        gameObject.name = itemName;
+        gameObject.GetComponent<Image>().sprite = itemImage;
     }
 
-    public void DoObjectEffect() //Temporarily its just the level up
+    public virtual void DoObjectEffect() 
     {
-        Debug.Log("oh hai");
-        GameController.instance.PlayerLevelUp();
-        GameController.instance.DisplayHeldItem();
 
-        if(GameController.instance.GetPlayerLevel() == 3)
-        {
-            GameController.instance.ToggleEndScreen();
-        }
     }
 
     #region Contact Check
