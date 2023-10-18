@@ -8,11 +8,15 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
+    public DialogueController DC;
+
+    //Player Components
     public GameObject player;
     public PlayerScript PS;
     public InventoryScript INV;
 
     //UI Elements
+    public GameObject DialogueScreen;
     public GameObject PauseMenu;
     public GameObject EndScreen; //temp
 
@@ -24,7 +28,7 @@ public class GameController : MonoBehaviour
 
     //Game States
     public bool isPaused = false;
-    public bool inScreenUI = false;
+    public bool inScreenUI = false; //Whether Puzzle Interface is open/close
 
     private void Awake()
     {
@@ -43,10 +47,11 @@ public class GameController : MonoBehaviour
 
     public void Start()
     {
-        //Get Player
+        //Update Components
         player = GameObject.FindGameObjectWithTag("Player");
         PS = player.GetComponent<PlayerScript>();
         INV = GetComponentInChildren<InventoryScript>();
+        DC = DialogueScreen.GetComponent<DialogueController>();
 
         //Update UI
         DisplayHeldItem();
@@ -58,6 +63,12 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && !inScreenUI)
         {
             TogglePause();
+        }
+
+        //test
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            DC.StartDialogue("999","prompt");
         }
     }
 
@@ -146,6 +157,17 @@ public class GameController : MonoBehaviour
     #endregion
 
     #region Player Functions
+
+    public void EnablePlayer()
+    {
+        PS.enabled = true;
+    }
+
+    public void DisablePlayer()
+    {
+        PS.enabled = false;
+    }
+
     //Increase the Player's Light Level by 1
     public void PlayerLevelUp()
     {

@@ -1,0 +1,1 @@
+{"refDialogueList":[{"dialogueLineID":"prompt","nextLineID":"prompt1","cutsceneID":"999","currentSpeaker":"Dara","dialogue":"hello there","choices":"-1","soundEffects":"null"}, {"dialogueLineID":"prompt1","nextLineID":"-1","cutsceneID":"999","currentSpeaker":"Elio","dialogue":"general kenobi","choices":"-1","soundEffects":"null"}]}
