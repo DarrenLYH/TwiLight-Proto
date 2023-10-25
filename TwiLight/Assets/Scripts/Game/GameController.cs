@@ -64,12 +64,6 @@ public class GameController : MonoBehaviour
         {
             TogglePause();
         }
-
-        //test
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            DC.StartDialogue("999","prompt");
-        }
     }
 
     #region Game Functions

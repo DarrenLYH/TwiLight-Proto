@@ -8,9 +8,11 @@ using UnityEngine.Rendering.Universal;
 public class DialogueController : MonoBehaviour
 {
     //UI Elements
-    public GameObject dialogueScreen;
+    public GameObject dialogueScreen;       //Entire Screen
     public GameObject buttonOne;
     public GameObject buttonTwo;
+    public GameObject elioPortrait;
+    public GameObject daraPortrait;
     public TextMeshProUGUI dialogueDisplay; //Dialogue Text
     public TextMeshProUGUI buttonOneText;   //Choice Button Content
     public TextMeshProUGUI buttonTwoText;
@@ -20,12 +22,15 @@ public class DialogueController : MonoBehaviour
     public List<DialogueData> currentCutscene = new List<DialogueData>();  //Specific Cutsene Contents
     public DialogueData currentDialogue;                                   //Current Dialogue Line
 
-    public string lineContent;      //Store content of each line
-    public float textSpeed;           //Speed of Typing
+    public string lineContent;        //Store content of each line
+    public float textSpeed;           //Delay between each word
     string[] choiceA = new string[2]; //Arrays to store Button content
     string[] choiceB = new string[2];
 
-    bool isChoosing; //Dialogue State
+    //Dialogue State
+    public bool isEndDialogue = false;
+    bool isChoosing;
+
 
     void Update()
     {
@@ -41,13 +46,6 @@ public class DialogueController : MonoBehaviour
             if (dialogueDisplay.text == currentDialogue.dialogue)
             {
                 NextLine();
-            }
-
-            //display is empty > Enable Player Choice Options
-            else if (dialogueDisplay.text == "")
-            {
-                EnableButtons();
-                isChoosing = true;
             }
 
             //dialogue in progress > Stop Coroutines and Display Full Dialogue
@@ -78,36 +76,30 @@ public class DialogueController : MonoBehaviour
 
     void NextLine()
     {
-        //If next CRID != -1 or -2, assign next CRID and dialogue
-        if (currentDialogue.nextLineID != "-1" && currentDialogue.nextLineID != "-2")
+        //nextLineID "-1" > End Dialogue
+        if(currentDialogue.nextLineID == "-1")
         {
-            //To prevent mismatch of CRID to text
+            dialogueScreen.SetActive(false);
+            GameController.instance.EnablePlayer();
+        }
+
+        //nextLine ID "-2" > Choices
+        else if (currentDialogue.nextLineID == "-2")
+        {
+            AssignChoices(currentDialogue.choices); //Assign Choice Data to Buttons
+            EnableButtons();                     
+        }
+
+        else //play next dialogue line
+        {
             if (isChoosing != true)
             {
                 AssignDialogue(currentDialogue.nextLineID);
             }
 
-            //Reset to default state
-            isChoosing = false;
+            //Clear Text & Start Next Line
             dialogueDisplay.text = string.Empty;
-
-            //Start next Line
             StartCoroutine(TypeLine());
-        }
-
-        //If NCRID column indicates there are choices
-        else if (currentDialogue.nextLineID == "-2")
-        {
-            AssignChoices(currentDialogue.choices);  //Sends data to be processed
-            EnableButtons();    //Makes choices buttons visible
-        }
-
-        //End dialogue and hide everything
-        else
-        {
-            dialogueScreen.SetActive(false);
-            GameController.instance.EnablePlayer();
-            Debug.Log("yay");
         }
     }
 
@@ -115,7 +107,7 @@ public class DialogueController : MonoBehaviour
     {
         //play sfx
 
-        foreach (char c in lineContent.ToCharArray()) //Types out dialogue for typingCharDialogue
+        foreach (char c in lineContent.ToCharArray()) //Typewriter Effect
         {
             dialogueDisplay.text += c;
             yield return new WaitForSeconds(textSpeed);
@@ -132,7 +124,7 @@ public class DialogueController : MonoBehaviour
         DisableButtons();
     }
 
-    //Assign current Cutscene 
+    //Create dataset for current Cutscene
     public void AssignCutscene(string cutsceneID)
     {
         //Reset Current Cutscene
@@ -148,48 +140,52 @@ public class DialogueController : MonoBehaviour
         }
     }
 
-    //Assign current Line
-    public void AssignDialogue(string dialogueLineID)   //Takes in CRID column of csv
+    //Update Current Line Data
+    public void AssignDialogue(string dialogueLineID)
     {
         currentDialogue = currentCutscene.Find(line => line.dialogueLineID == dialogueLineID);
         lineContent = currentDialogue.dialogue; //Assign the current dialogue content to the LineContent array for printing
 
+        //Display Elio portrait
         if (currentDialogue.currentSpeaker == "Elio")
         {
-           //display elio box
+            elioPortrait.SetActive(true);
+            daraPortrait.SetActive(false);
         }
 
+        //Display Dara portrait
         else if (currentDialogue.currentSpeaker == "Dara")
         {
-            //display dara box
-        }
-
-        else
-        {
-          //display interaction box
+            daraPortrait.SetActive(true);
+            elioPortrait.SetActive(false);
         }
     }
 
     //Assign Choices to Button
     public void AssignChoices(string choiceInput)
     {
-        //Array of choices
-        string[] choices = choiceInput.Split('%'); //Splits the column into its two options with %
+        isChoosing = true;//Update state
 
-        //Making each choice into its own array
-        //Format is Button Text [0], CutsceneID [1] split by @
+        //Set Portrait to Elio
+        elioPortrait.SetActive(true);
+        daraPortrait.SetActive(false);
+
+        string[] choices = choiceInput.Split('%'); //Splits the choices column into the two options with %
+
+        //Split each choice into its own array
+        //[0] > Button Text,[1] > nextLineID
         choiceA = choices[0].Split('@');
         choiceB = choices[1].Split('@');
 
         AssignButtonText(choiceA[0], choiceB[0]);
     }
 
-    //Assigns button text based on input
+    //Update Button Text
     public void AssignButtonText(string inputA, string inputB)
     {
-        dialogueDisplay.text = string.Empty; //Refreshes buttons text
-        buttonOneText.SetText(inputA);       //Sets button one text
-        buttonTwoText.SetText(inputB);       //Sets button two text
+        dialogueDisplay.text = string.Empty; //Clear button text
+        buttonOneText.SetText(inputA);       //Set button one text
+        buttonTwoText.SetText(inputB);       //Set button two text
     }
     #endregion
 
@@ -200,7 +196,8 @@ public class DialogueController : MonoBehaviour
         AssignDialogue(choiceA[1]);
 
         //Start next Line
-        NextLine();
+        isChoosing = false;
+        StartCoroutine(TypeLine());
         DisableButtons();
     }
 
@@ -209,8 +206,9 @@ public class DialogueController : MonoBehaviour
         //Assigns next ID to the dialogue
         AssignDialogue(choiceB[1]);
 
-        //Start next Line
-        NextLine();
+        //Start next Lines
+        isChoosing = false;
+        StartCoroutine(TypeLine());
         DisableButtons();
     }
 

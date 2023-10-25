@@ -1,62 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.CompilerServices;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class LO_CrystalActivator : LightableObject
 {
+    //Object Components
     [SerializeField] private LayerMask contactCheck;
     public LineRenderer LR;
     public int beamDirection;
     Vector2 direction;
 
+    //Object State
     public bool isToggled;
+    public bool isTouching;
 
-    public delegate void onActivation();
-
-    public void LateUpdate()
+    private void Update()
     {
-        if (isToggled)
+        if (isTouching && player.GetComponent<PlayerScript>().lampPlaced == false && Input.GetMouseButtonDown(1))
         {
-            EmitBeam();
-        }
-
-        else
-        {
-            isTriggered = false;
-            StartCoroutine(DelayedShutoff());
+            //ToggleActivator();
         }
     }
 
     public void ToggleActivator()
     {
         isToggled = !isToggled;
+        
+        if (isToggled)
+        {
+            EmitBeam();
+            Debug.Log("Crystal Activated");
+        }
+
+        else
+        {
+            isTriggered = false;
+            StartCoroutine(DelayedShutoff());
+            Debug.Log("Crystal Deactivated");
+        }
     }
 
     public override void OnHitEnter()
     {
-        isContacted = true;
-        //Check Activation Requirements
-        if (lightRequirement <= player.GetComponent<PlayerScript>().lightLevel)
-        {
-            ToggleActivator();
-        }
-
-        Debug.Log("Crystal Activated");
-    }
-
-    //If Not Contacted by Light
-    public override void OnHitExit()
-    {
-        if (isTriggered)
-        {
-            isTriggered = false;
-            StartCoroutine(DelayedShutoff());
-        }
-
-        isContacted = false;
-        Debug.Log("Crystal Deactivated");
+        isLit = true;
+        //Override Default Action
     }
 
     #region Beam Emitter
@@ -75,17 +65,17 @@ public class LO_CrystalActivator : LightableObject
 
             //Beam Down
             case 1:
-                direction = Vector2.down;
+                direction = Vector2.right;
                 break;
 
             //Beam Left
             case 2:
-                direction = Vector2.left;
+                direction = Vector2.down;
                 break;
 
             //Beam Right
             case 3:
-                direction = Vector2.right;
+                direction = Vector2.left;
                 break;
 
             default:
@@ -145,5 +135,42 @@ public class LO_CrystalActivator : LightableObject
         Shutoff();
         yield break;
     }
+    #endregion
+
+    #region Contact Check
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("PlayerLamp"))
+        {
+            ToggleActivator();
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("PlayerLamp"))
+        {
+            ToggleActivator();
+        }
+    }
+
+    /*  void OnCollisionEnter2D(Collision2D collision)
+      {
+          PlayerScript PS = collision.gameObject.GetComponent<PlayerScript>();
+          if (collision.gameObject.CompareTag("Player") && PS.currentLight == 3)
+          {
+              isTouching = true;
+              PS.lampPlaceable = true;
+          }
+      }
+
+      void OnCollisionExit2D(Collision2D collision)
+      {
+          if (collision.gameObject.CompareTag("Player"))
+          {
+              isTouching = false;
+              collision.gameObject.GetComponent<PlayerScript>().lampPlaceable = false;
+          }
+      }*/
     #endregion
 }

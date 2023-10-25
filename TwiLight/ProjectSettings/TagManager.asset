@@ -8,6 +8,8 @@ TagManager:
   - Wall
   - Pylon
   - Receiver
+  - Activator
+  - PlayerLamp
   layers:
   - Default
   - TransparentFX

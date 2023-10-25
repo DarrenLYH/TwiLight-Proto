@@ -18,21 +18,30 @@ public class PlayerScript : MonoBehaviour
     public int lightLevel;   //Maximum Level of Magical Light
     public int currentLight; //Currently Held Light
 
+    public GameObject prefabLamp;
+    public GameObject placedLamp;
+    public bool lampPlaceable = false;
+    public bool lampPlaced = false;
+    public bool lampContacted = false;
+
     void Update()
     {
+        #region Movement
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Speed", movement.sqrMagnitude);
-
+        #endregion
+        
         //Toggle Flashlight
         if (Time.timeScale == 1)
         {
             Look();
 
-            if (lightLevel != 0 && Input.GetMouseButton(0))
+            //Toggle Light On/Offs
+            if (lightLevel != 0 && currentLight != 3 && Input.GetMouseButton(0))
             {
                 ML.isToggled = true;
             }
@@ -41,18 +50,32 @@ public class PlayerScript : MonoBehaviour
             {
                 ML.isToggled = false;
             }
+
+            //Place Lamp
+            if (Input.GetMouseButtonDown(1))
+            {
+                if (currentLight == 3 && lampPlaceable && !lampPlaced)
+                {
+                    PlaceLight();
+                }
+
+                else if (lampContacted)
+                {
+                    PickupLight();
+                }
+            }
+
+            //Switch between held Light sources
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SwitchLight();
+            }
         }
 
         //Activate Glow when light is picked up
         if(lightLevel != 0)
         {
             glow.SetActive(true);
-        }
-
-        //Switch between held Light sources
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SwitchLight();
         }
     }
 
@@ -89,5 +112,19 @@ public class PlayerScript : MonoBehaviour
 
             GameController.instance.DisplayHeldItem();
         }
+    }
+
+    public void PlaceLight()
+    {
+        lampPlaceable = false;
+        lampPlaced = true;
+        Instantiate(prefabLamp, transform.position + new Vector3(0, -0.5f, 0), Quaternion.identity);
+    }
+
+    public void PickupLight()
+    {
+        lampPlaceable = true;
+        lampPlaced = false;
+        Destroy(placedLamp);
     }
 }

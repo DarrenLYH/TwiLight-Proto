@@ -17,7 +17,7 @@ public class LO_Wall : LightableObject
 
     public override void DeactivateInteraction()
     {
-        isTriggered = false;//State = Not Triggered when looked at
+        isTriggered = false;
     }
 
     //Coroutine ensures Player has some time to pass through
@@ -25,7 +25,7 @@ public class LO_Wall : LightableObject
     {
         ToggleWall(false);
 
-        while(isContacted != false)
+        while(isLit != false)
         {
             yield return null;
         }

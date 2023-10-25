@@ -31,6 +31,7 @@ public class CrystalPylon : MonoBehaviour
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = pylonStates[beamDirection];
     }
+
     private void Update()
     {
         #region Interactibility Check
@@ -133,7 +134,7 @@ public class CrystalPylon : MonoBehaviour
         if (!isMoving)
         {
             Invoke("EmitPylonBeam", 1f);
-            Debug.Log("abaabababa");
+            Debug.Log("pylon triggered");
         }
     }
 
@@ -157,17 +158,17 @@ public class CrystalPylon : MonoBehaviour
 
             //Beam Down
             case 1:
-                direction = Vector2.down;
+                direction = Vector2.right;
                 break;
 
             //Beam Left
             case 2:
-                direction = Vector2.left;
+                direction = Vector2.down;
                 break;
 
             //Beam Right
             case 3:
-                direction = Vector2.right;
+                direction = Vector2.left;
                 break;
 
             default:
