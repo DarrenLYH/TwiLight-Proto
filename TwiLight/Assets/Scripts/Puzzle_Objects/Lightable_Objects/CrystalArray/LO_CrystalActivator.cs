@@ -15,15 +15,6 @@ public class LO_CrystalActivator : LightableObject
 
     //Object State
     public bool isToggled;
-    public bool isTouching;
-
-    private void Update()
-    {
-        if (isTouching && player.GetComponent<PlayerScript>().lampPlaced == false && Input.GetMouseButtonDown(1))
-        {
-            //ToggleActivator();
-        }
-    }
 
     public void ToggleActivator()
     {
@@ -140,7 +131,7 @@ public class LO_CrystalActivator : LightableObject
     #region Contact Check
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("PlayerLamp"))
+        if (collision.gameObject.CompareTag("PlayerLamp")) //If lamp is placed
         {
             ToggleActivator();
         }
@@ -148,29 +139,10 @@ public class LO_CrystalActivator : LightableObject
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("PlayerLamp"))
+        if (collision.gameObject.CompareTag("PlayerLamp")) //If lamp is removed
         {
             ToggleActivator();
         }
     }
-
-    /*  void OnCollisionEnter2D(Collision2D collision)
-      {
-          PlayerScript PS = collision.gameObject.GetComponent<PlayerScript>();
-          if (collision.gameObject.CompareTag("Player") && PS.currentLight == 3)
-          {
-              isTouching = true;
-              PS.lampPlaceable = true;
-          }
-      }
-
-      void OnCollisionExit2D(Collision2D collision)
-      {
-          if (collision.gameObject.CompareTag("Player"))
-          {
-              isTouching = false;
-              collision.gameObject.GetComponent<PlayerScript>().lampPlaceable = false;
-          }
-      }*/
     #endregion
 }

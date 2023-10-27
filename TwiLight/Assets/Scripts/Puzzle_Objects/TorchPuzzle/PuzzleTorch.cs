@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PuzzleTorch : MonoBehaviour
 {
-    public GameObject flame;
+    public GameObject glow;
+    public Animator animator;
+
     public bool isLit = false;
     public bool isTouching;
     public bool isInteractible;
@@ -13,11 +15,19 @@ public class PuzzleTorch : MonoBehaviour
     {
         if (isLit)
         {
-            flame.SetActive(true);
+            animator.SetBool("isActive", true);
+            glow.SetActive(true);
         }
     }
     public void Update()
     {
+        //Disable Interaction if not holding the right Light
+        if(GameController.instance.GetPlayerLight() != 2)
+        {
+            isTouching = false;
+            GameController.instance.HideInteractPrompt();
+        }
+
         if(Input.GetKeyDown(KeyCode.E) && isTouching && isInteractible)
         {
             ToggleTorch();
@@ -31,20 +41,22 @@ public class PuzzleTorch : MonoBehaviour
         if (isLit)
         {
             isLit = false;
-            flame.SetActive(false);
+            animator.SetBool("isActive", false);
+            glow.SetActive(false);
         }
 
         else
         {
             isLit = true;
-            flame.SetActive(true);
+            animator.SetBool("isActive", true);
+            glow.SetActive(true);
         }
     }
 
     #region Contact Check
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (isInteractible)
+        if (GameController.instance.GetPlayerLight() == 2 && isInteractible)
         {
             isTouching = true;
             GameController.instance.DisplayInteractPrompt();

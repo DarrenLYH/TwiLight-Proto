@@ -13,6 +13,7 @@ public class DialogueController : MonoBehaviour
     public GameObject buttonTwo;
     public GameObject elioPortrait;
     public GameObject daraPortrait;
+    public TextMeshProUGUI speakerName;     //Speaker Name
     public TextMeshProUGUI dialogueDisplay; //Dialogue Text
     public TextMeshProUGUI buttonOneText;   //Choice Button Content
     public TextMeshProUGUI buttonTwoText;
@@ -151,6 +152,7 @@ public class DialogueController : MonoBehaviour
         {
             elioPortrait.SetActive(true);
             daraPortrait.SetActive(false);
+            speakerName.text = "Elio";
         }
 
         //Display Dara portrait
@@ -158,6 +160,15 @@ public class DialogueController : MonoBehaviour
         {
             daraPortrait.SetActive(true);
             elioPortrait.SetActive(false);
+            speakerName.text = "Dara";
+        }
+
+        //Display ??? 
+        else if(currentDialogue.currentSpeaker == "Unknown")
+        {
+            daraPortrait.SetActive(true);
+            elioPortrait.SetActive(false);
+            speakerName.text = "???";
         }
     }
 

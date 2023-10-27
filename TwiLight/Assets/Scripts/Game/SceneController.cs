@@ -5,15 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    public void ToGame()
+    public void ToScene(string destination)
     {
-        SceneManager.LoadScene("GameLevel");
+        SceneManager.LoadScene(destination);
+        AudioController.instance.StopBGM();
     }
 
     public void ToTitle()
     {
-        GameController.instance.TogglePause();
-        GameController.instance.SelfDestruct();
+        GameController.instance.TogglePause();  //Unpause Game
+        GameController.instance.SelfDestruct(); //Reset GameController
         SceneManager.LoadScene("TitleScreen");
     }
 

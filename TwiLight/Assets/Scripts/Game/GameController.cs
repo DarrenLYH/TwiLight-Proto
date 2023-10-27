@@ -97,16 +97,9 @@ public class GameController : MonoBehaviour
     //Temporary End Screen
     public void ToggleEndScreen()
     {
-            EndScreen.SetActive(true);
-            Time.timeScale = 0f;
-            isPaused = true;
-    }
-
-    //Game Over (Currently Unused)
-    public void GameOver()
-    {
+        EndScreen.SetActive(true);
         Time.timeScale = 0f;
-        //deathMenu.SetActive(true);
+        isPaused = true;
     }
 
     //Unload Instance when returning to Title
