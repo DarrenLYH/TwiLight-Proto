@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class InventoryScript : MonoBehaviour
 {
     public GameObject[] itemDisplay;
+    public Sprite[] bagSprites; 
     bool isOpen = false;
     public int itemsHeld = 0;
 
@@ -17,6 +18,7 @@ public class InventoryScript : MonoBehaviour
         //Open/Close Inventory
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            //play sfx
             ToggleInventory();
         }
     }
@@ -24,7 +26,18 @@ public class InventoryScript : MonoBehaviour
     public void ToggleInventory()
     {
         isOpen = !isOpen; //Update State
+
         //Update Display
+        if (isOpen)
+        {
+            GetComponent<Image>().sprite = bagSprites[1];
+        }
+
+        else
+        {
+            GetComponent<Image>().sprite = bagSprites[0];
+        }
+
         for (int i = 0; i < transform.childCount; i++)
         {
             transform.GetChild(i).gameObject.SetActive(isOpen);
@@ -41,6 +54,11 @@ public class InventoryScript : MonoBehaviour
             refItem.itemImage = pickup.itemImage;
             refItem.InstantiateObject();
             refItem.gameObject.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+
+            if(!isOpen)
+            {
+                refItem.gameObject.SetActive(false);
+            }
 
             return true;
         }
@@ -104,6 +122,6 @@ public class InventoryScript : MonoBehaviour
             }
         }
 
-        updateList = false;
+        //updateList = false;
     }
 }

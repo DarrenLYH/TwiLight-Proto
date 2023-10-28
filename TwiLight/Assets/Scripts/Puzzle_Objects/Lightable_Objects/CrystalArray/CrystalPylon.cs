@@ -197,6 +197,11 @@ public class CrystalPylon : MonoBehaviour
         {
             LR.SetPosition(1, LR.transform.InverseTransformPoint(hit.point));
         }
+        
+        else if (hit.collider && hit.collider.CompareTag("SpecialObject"))
+        {
+            LR.SetPosition(1, LR.transform.InverseTransformPoint(hit.point));
+        }
 
         else
         {

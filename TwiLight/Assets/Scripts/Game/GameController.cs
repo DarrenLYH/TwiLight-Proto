@@ -43,10 +43,7 @@ public class GameController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
 
-    public void Start()
-    {
         //Update Components
         player = GameObject.FindGameObjectWithTag("Player");
         PS = player.GetComponent<PlayerScript>();
@@ -152,6 +149,7 @@ public class GameController : MonoBehaviour
 
     public void DisablePlayer()
     {
+        PS.animator.SetFloat("Speed", 0);
         PS.enabled = false;
     }
 

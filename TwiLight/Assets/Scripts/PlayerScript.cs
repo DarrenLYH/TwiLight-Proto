@@ -11,7 +11,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject eyes;
     public GameObject glow;
     public Animator animator;
-    
+
     //Player Variables
     Vector2 movement;
     public float moveSpeed = 5f;
@@ -33,8 +33,13 @@ public class PlayerScript : MonoBehaviour
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Speed", movement.sqrMagnitude);
+
+        //if(movement != Vector2.zero)
+        //{
+            //playsfx
+        //}
         #endregion
-        
+
         //Toggle Flashlight
         if (Time.timeScale == 1)
         {
@@ -73,7 +78,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         //Activate Glow when light is picked up
-        if(lightLevel != 0)
+        if (lightLevel != 0)
         {
             glow.SetActive(true);
         }
@@ -96,16 +101,16 @@ public class PlayerScript : MonoBehaviour
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
         Vector2 direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
-        eyes.transform.up = direction;      
+        eyes.transform.up = direction;
     }
 
     public void SwitchLight()
     {
-        if(lightLevel != 0)
+        if (lightLevel != 0)
         {
             currentLight++;
 
-            if(currentLight > lightLevel)
+            if (currentLight > lightLevel)
             {
                 currentLight = 1;
             }

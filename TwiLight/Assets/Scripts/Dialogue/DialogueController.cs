@@ -180,6 +180,7 @@ public class DialogueController : MonoBehaviour
         //Set Portrait to Elio
         elioPortrait.SetActive(true);
         daraPortrait.SetActive(false);
+        speakerName.text = "Elio";
 
         string[] choices = choiceInput.Split('%'); //Splits the choices column into the two options with %
 

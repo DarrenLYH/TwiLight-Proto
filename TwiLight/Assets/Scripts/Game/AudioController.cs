@@ -32,7 +32,7 @@ public class AudioController : MonoBehaviour
     {
         BGMVolume(0.05f);
         SFXVolume(0.5f);
-        PlayBGM("placeholder");
+        //PlayBGM("placeholder");
     }
 
     public void PlayBGM(string name)

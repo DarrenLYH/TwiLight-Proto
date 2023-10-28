@@ -41,5 +41,10 @@ public class CutsceneController : MonoBehaviour
             i++;
         }
     }
-        
+    
+    public IEnumerator Cutscene()
+    {
+        //TBC
+        return null;
+    }
 }

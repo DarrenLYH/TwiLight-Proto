@@ -9,10 +9,11 @@ public class LightPickup : PickupObject
         Debug.Log("oh hai");
         GameController.instance.PlayerLevelUp();
         GameController.instance.DisplayHeldItem();
+        GameController.instance.DC.StartDialogue("03", "0301");
 
         if (GameController.instance.GetPlayerLevel() == 3)
         {
-            GameController.instance.ToggleEndScreen();
+            //GameController.instance.ToggleEndScreen();
         }
 
         Destroy(this.gameObject);

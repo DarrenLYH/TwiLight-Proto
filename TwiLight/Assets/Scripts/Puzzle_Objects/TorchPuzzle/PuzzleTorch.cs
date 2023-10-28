@@ -22,7 +22,7 @@ public class PuzzleTorch : MonoBehaviour
     public void Update()
     {
         //Disable Interaction if not holding the right Light
-        if(GameController.instance.GetPlayerLight() != 2)
+        if(isTouching && GameController.instance.GetPlayerLight() != 2)
         {
             isTouching = false;
             GameController.instance.HideInteractPrompt();
@@ -30,6 +30,7 @@ public class PuzzleTorch : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.E) && isTouching && isInteractible)
         {
+            //play sfx
             ToggleTorch();
             GameController.instance.HideInteractPrompt();
             GetComponentInParent<TorchPuzzleScript>().CheckPuzzleStatus();
@@ -62,6 +63,7 @@ public class PuzzleTorch : MonoBehaviour
             GameController.instance.DisplayInteractPrompt();
         }
     }
+
     void OnCollisionExit2D(Collision2D collision)
     {
         if (isInteractible)

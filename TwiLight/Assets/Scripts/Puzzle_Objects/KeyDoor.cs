@@ -32,6 +32,7 @@ public class KeyDoor : MonoBehaviour
             else
             {
                 hasKeys = false;
+                break;
             }
         }
 

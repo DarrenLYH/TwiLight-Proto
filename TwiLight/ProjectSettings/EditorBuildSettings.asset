@@ -12,9 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Cutscene.unity
     guid: 647dd14fabc559a47a2a303365184a2f
   - enabled: 1
+    path: Assets/Scenes/DemoLevelM2.unity
+    guid: be767e630d49f674bbd2cdb62b9e696f
+  - enabled: 1
+    path: Assets/Scenes/FullLevelM2.unity
+    guid: 4f1dee68d83ccef42897a461eb289df1
+  - enabled: 1
     path: Assets/Scenes/Test.unity
     guid: 157561dfc76bef8409b40282423012a0
-  - enabled: 1
-    path: Assets/Scenes/GameLevel.unity
-    guid: 5b15ed51155fb2d4d8e09f08a9043791
   m_configObjects: {}

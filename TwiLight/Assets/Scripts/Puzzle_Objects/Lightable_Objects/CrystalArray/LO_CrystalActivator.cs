@@ -96,6 +96,12 @@ public class LO_CrystalActivator : LightableObject
             LR.SetPosition(1, LR.transform.InverseTransformPoint(hit.point));
         }
 
+        //If Colliding with Wall > Beam to Wall
+        else if (hit.collider && hit.collider.CompareTag("SpecialObject"))
+        {
+            LR.SetPosition(1, LR.transform.InverseTransformPoint(hit.point));
+        }
+
         else
         {
             Debug.Log("nothing here");
