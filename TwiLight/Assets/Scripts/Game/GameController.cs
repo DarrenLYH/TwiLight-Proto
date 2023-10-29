@@ -20,8 +20,10 @@ public class GameController : MonoBehaviour
     public GameObject PauseMenu;
     public GameObject EndScreen; //temp
 
-    public GameObject heldItem;  
     public Sprite[] heldSprites;
+    public GameObject heldItem;
+    public GameObject hintSwitch;
+    public TextMeshProUGUI hintActivate;
     public TextMeshProUGUI levelIndicator;
     public GameObject interactPrompt;
     public GameObject pickupPrompt;
@@ -51,6 +53,7 @@ public class GameController : MonoBehaviour
         DC = DialogueScreen.GetComponent<DialogueController>();
 
         //Update UI
+        PS.animator.SetInteger("CurrentLight", PS.currentLight);
         DisplayHeldItem();
     }
 
@@ -108,12 +111,28 @@ public class GameController : MonoBehaviour
     #endregion
 
     #region UI Functions
+    //Update UI Display
     public void DisplayHeldItem()
     {
         if(PS.lightLevel > 0)
         {
             int i = PS.currentLight - 1;
             heldItem.GetComponent<Image>().sprite = heldSprites[i];
+        }
+
+        if(PS.lightLevel > 1)
+        {
+            hintSwitch.SetActive(true);
+        }
+
+        if (PS.currentLight == 3)
+        {
+            hintActivate.SetText("RMB");
+        }
+
+        else
+        {
+            hintActivate.SetText("LMB");
         }
 
         levelIndicator.SetText("Current Torch: " + PS.currentLight);
@@ -145,12 +164,16 @@ public class GameController : MonoBehaviour
     public void EnablePlayer()
     {
         PS.enabled = true;
+        INV.enabled = true;
     }
 
+    //Disable Player Script / Input
     public void DisablePlayer()
     {
         PS.animator.SetFloat("Speed", 0);
+        PS.FC.isWalking = false;
         PS.enabled = false;
+        INV.enabled = false;
     }
 
     //Increase the Player's Light Level by 1

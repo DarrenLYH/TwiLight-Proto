@@ -7,4 +7,5 @@
 {"dialogueLineID":"0203","nextLineID":"0204","cutsceneID":"02","currentSpeaker":"Dara","dialogue":"That glint in the corner! Perhaps it'll come in handy later on.","choices":"-1","soundEffects":"null"},
 {"dialogueLineID":"0204","nextLineID":"-1","cutsceneID":"02","currentSpeaker":"Elio","dialogue":"Let's check it out.","choices":"-1","soundEffects":"null"},
 {"dialogueLineID":"0301","nextLineID":"0302","cutsceneID":"03","currentSpeaker":"Dara","dialogue":"Wow! With this, I feel so much stronger!","choices":"-1","soundEffects":"null"},
-{"dialogueLineID":"0302","nextLineID":"-1","cutsceneID":"03","currentSpeaker":"Dara","dialogue":"Let's inspect that weird looking wall over there, maybe we'll find something else!","choices":"-1","soundEffects":"null"}]}
+{"dialogueLineID":"0302","nextLineID":"-1","cutsceneID":"03","currentSpeaker":"Dara","dialogue":"Let's inspect that weird looking wall over there, maybe we'll find something else!","choices":"-1","soundEffects":"null"}, 
+{"dialogueLineID":"0401","nextLineID":"-1","cutsceneID":"04","currentSpeaker":"Dara","dialogue":"Nice! Let's keep going!","choices":"-1","soundEffects":"null"}]}

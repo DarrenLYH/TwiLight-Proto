@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Drawing;
 using TMPro;
-using UnityEditor.U2D;
+//using UnityEditor.U2D;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,6 +29,8 @@ public class PickupObject : MonoBehaviour
         //Pickup Ability
         if (isTouching && Input.GetKeyDown(KeyCode.E))
         {
+            //Play SFX
+            AudioController.instance.PlaySFX("pickup", 0.05f);
             DoObjectEffect();
         }
     }

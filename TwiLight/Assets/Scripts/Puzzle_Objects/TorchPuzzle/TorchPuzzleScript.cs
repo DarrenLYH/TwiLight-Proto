@@ -42,6 +42,7 @@ public class TorchPuzzleScript : MonoBehaviour
         }
 
         isSolved = true;
+        AudioController.instance.PlaySFX("doorOpen", 1f);
         door.SetActive(false);
     }
 }

@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+//using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
     //Player Components
     [SerializeField] private MagicalLight ML;
+    public FootstepController FC;
     public Rigidbody2D RB;
     public GameObject eyes;
     public GameObject glow;
+    
     public Animator animator;
 
     //Player Variables
@@ -34,16 +36,32 @@ public class PlayerScript : MonoBehaviour
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Speed", movement.sqrMagnitude);
 
-        //if(movement != Vector2.zero)
-        //{
-            //playsfx
-        //}
+        if(movement != Vector2.zero)
+        {
+            FC.isWalking = true;
+        }
+
+        else
+        {
+            FC.isWalking = false;
+        }
         #endregion
 
         //Toggle Flashlight
         if (Time.timeScale == 1)
         {
             Look();
+
+            //SFX
+            if (currentLight == 1 && Input.GetMouseButtonDown(0))
+            {
+                AudioController.instance.PlaySFX("candle", 1f);
+            }
+
+            if (currentLight == 2 && Input.GetMouseButtonDown(0))
+            {
+                AudioController.instance.PlaySFX("torch", 1f);
+            }
 
             //Toggle Light On/Offs
             if (lightLevel != 0 && currentLight != 3 && Input.GetMouseButton(0))
@@ -61,11 +79,15 @@ public class PlayerScript : MonoBehaviour
             {
                 if (currentLight == 3 && lampPlaceable && !lampPlaced)
                 {
+                    AudioController.instance.PlaySFX("lamp", 1f);
+                    animator.SetInteger("CurrentLight", 0);
                     PlaceLight();
                 }
 
                 else if (lampContacted)
                 {
+                    AudioController.instance.PlaySFX("pickup", 0.05f);
+                    animator.SetInteger("CurrentLight", 3);
                     PickupLight();
                 }
             }
@@ -115,6 +137,7 @@ public class PlayerScript : MonoBehaviour
                 currentLight = 1;
             }
 
+            animator.SetInteger("CurrentLight", currentLight);
             GameController.instance.DisplayHeldItem();
         }
     }

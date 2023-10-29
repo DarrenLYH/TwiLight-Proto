@@ -68,7 +68,7 @@ public class DialogueController : MonoBehaviour
         GameController.instance.DisablePlayer();
 
         //Assigns cutscene and dialogue on run
-        AssignCutscene(cutsceneID);  //NOTE** AssignCutscene must run before AssignDialogue
+        AssignCutscene(cutsceneID);
         AssignDialogue(lineID);
 
         //Starts the typing
@@ -204,6 +204,9 @@ public class DialogueController : MonoBehaviour
     #region Button Functionality
     public void SelectChoiceA()
     {
+        //Play SFX
+        AudioController.instance.PlaySFX("button", 0.05f);
+
         //Assigns next ID to the dialogue
         AssignDialogue(choiceA[1]);
 
@@ -215,6 +218,9 @@ public class DialogueController : MonoBehaviour
 
     public void SelectChoiceB()
     {
+        //Play SFX
+        AudioController.instance.PlaySFX("button", 0.05f);
+
         //Assigns next ID to the dialogue
         AssignDialogue(choiceB[1]);
 

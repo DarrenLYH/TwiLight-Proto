@@ -43,6 +43,7 @@ public class KeyDoor : MonoBehaviour
                 GameController.instance.INV.RemoveItem(key);
             }
 
+            AudioController.instance.PlaySFX("doorOpen", 1f);
             door.SetActive(false);
         }
     }

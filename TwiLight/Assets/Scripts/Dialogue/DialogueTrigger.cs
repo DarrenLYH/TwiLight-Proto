@@ -6,9 +6,14 @@ public class DialogueTrigger : MonoBehaviour
 {
     public string cutscene;
     public string line;
+    bool isTriggered;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        GameController.instance.DC.StartDialogue(cutscene, line);
+        if (!isTriggered)
+        {
+            GameController.instance.DC.StartDialogue(cutscene, line);
+            isTriggered = true;
+        }
     }
 }

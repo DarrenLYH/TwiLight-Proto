@@ -30,7 +30,7 @@ public class PuzzleTorch : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.E) && isTouching && isInteractible)
         {
-            //play sfx
+            AudioController.instance.PlaySFX("torch", 1f);
             ToggleTorch();
             GameController.instance.HideInteractPrompt();
             GetComponentInParent<TorchPuzzleScript>().CheckPuzzleStatus();

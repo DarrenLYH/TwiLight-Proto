@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InventoryScript : MonoBehaviour
 {
     public GameObject[] itemDisplay;
+    public GameObject invBackground;
     public Sprite[] bagSprites; 
     bool isOpen = false;
     public int itemsHeld = 0;
@@ -18,7 +17,7 @@ public class InventoryScript : MonoBehaviour
         //Open/Close Inventory
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            //play sfx
+            AudioController.instance.PlaySFX("invOpen", 0.5f);
             ToggleInventory();
         }
     }
@@ -31,11 +30,13 @@ public class InventoryScript : MonoBehaviour
         if (isOpen)
         {
             GetComponent<Image>().sprite = bagSprites[1];
+            invBackground.transform.localScale = new Vector3(2f, 3.74f, 0);
         }
 
         else
         {
             GetComponent<Image>().sprite = bagSprites[0];
+            invBackground.transform.localScale = new Vector3(2f, 0, 0);
         }
 
         for (int i = 0; i < transform.childCount; i++)
