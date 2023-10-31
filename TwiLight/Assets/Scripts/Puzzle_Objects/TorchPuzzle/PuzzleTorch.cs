@@ -11,13 +11,29 @@ public class PuzzleTorch : MonoBehaviour
     public bool isTouching;
     public bool isInteractible;
 
-    public void Awake()
+    public void Start()
     {
+        if (isInteractible)
+        {
+            animator.SetBool("isInteractible", true);
+        }
+
+        else
+        {
+            animator.SetBool("isInteractible", false);
+        }
+
         if (isLit)
         {
             animator.SetBool("isActive", true);
             glow.SetActive(true);
         }
+
+        else
+        {
+            animator.SetBool("isActive", false);
+        }
+        
     }
     public void Update()
     {

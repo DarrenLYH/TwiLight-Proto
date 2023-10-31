@@ -10,6 +10,11 @@ public class CrystalPuzzleManager : MonoBehaviour
 
     public void UpdatePuzzle()
     {
-        
+        foreach(GameObject x in puzzleObjects)
+        {
+            //update self
+            //if pylon > trigger again
+            //if 
+        }
     }
 }

@@ -52,6 +52,7 @@ public class LO_Wall : LightableObject
             wallFace.isTrigger = false;
 
             //Set Opacity to Full
+            objCollider.gameObject.GetComponent<Tilemap>().color = new Color(1f, 1f, 1f, 1f);
             wallFace.gameObject.GetComponent<Tilemap>().color = new Color(1f, 1f, 1f, 1f);
             areaHider.GetComponent<Tilemap>().color = new Color(1f, 1f, 1f, 1f);
         }
@@ -66,6 +67,7 @@ public class LO_Wall : LightableObject
             wallFace.isTrigger = true;
 
             //Set Wall Opacity to 1/4
+            objCollider.gameObject.GetComponent<Tilemap>().color = new Color(1f, 1f, 1f, 0.25f);
             wallFace.gameObject.GetComponent<Tilemap>().color = new Color(1f, 1f, 1f, 0.25f);
             areaHider.GetComponent<Tilemap>().color = new Color(1f, 1f, 1f, 0.25f);
         }

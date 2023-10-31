@@ -7,6 +7,7 @@ public class CrystalPylon : MonoBehaviour
 {
     //Pylon Properties
     public bool isInteractible;
+    public bool isBroken = false;
     public bool isMovable;
     public bool isMoving = false;
     public bool isRotatable;
@@ -29,13 +30,14 @@ public class CrystalPylon : MonoBehaviour
 
     private void Awake()
     {
-        gameObject.GetComponent<SpriteRenderer>().sprite = pylonStates[beamDirection];
+        UpdatePylonState();
     }
 
     private void Update()
     {
         #region Interactibility Check
-        if(isMovable && isTouching && !isMoving && !isActive)
+
+        if (isMovable && isTouching && !isMoving && !isActive)
         {
             isInteractible = true;
         }
@@ -51,18 +53,29 @@ public class CrystalPylon : MonoBehaviour
         }
         #endregion
 
-        //Move Pylon
-        if (isMovable && isInteractible && Input.GetKeyDown(KeyCode.E))
+        if (isBroken)
         {
-            MovePylon();
-            GameController.instance.HideInteractPrompt();
+            if(isInteractible && Input.GetKeyDown(KeyCode.E))
+            {
+                FixPylon();
+            }
         }
 
-        //Rotate Pylon
-        if (isRotatable && isInteractible && Input.GetKeyDown(KeyCode.E))
+        else 
         {
-            RotatePylon();
-            GameController.instance.HideInteractPrompt();
+            //Move Pylon
+            if (isMovable && isInteractible && Input.GetKeyDown(KeyCode.E))
+            {
+                MovePylon();
+                GameController.instance.HideInteractPrompt();
+            }
+
+            //Rotate Pylon
+            if (isRotatable && isInteractible && Input.GetKeyDown(KeyCode.E))
+            {
+                RotatePylon();
+                GameController.instance.HideInteractPrompt();
+            }
         }
     }
 
@@ -79,9 +92,41 @@ public class CrystalPylon : MonoBehaviour
         }
     }
 
-    public void MovePylon()
+    public void UpdatePylonState()
     {
-        isMoving = true; //Update Pylon State
+        if (isBroken)
+        {
+            gameObject.GetComponent<SpriteRenderer>().sprite = pylonStates[4];
+        }
+
+        else
+        {
+            gameObject.GetComponent<SpriteRenderer>().sprite = pylonStates[beamDirection];
+        }
+    }
+
+    public void FixPylon()
+    {
+        Debug.Log("hello");
+
+        if (GameController.instance.INV.CheckItem("crystalball"))
+        {
+            Debug.Log("fug");
+            GameController.instance.INV.RemoveItem("crystalball");
+            isBroken = false;
+            UpdatePylonState();
+        }
+
+        else
+        {
+            Debug.Log("nah");
+            GameController.instance.DC.StartDialogue("999","prompt");
+        }
+    }
+
+    public void MovePylon() //Note to Self: Diagonal Movement is OK
+    {
+        isMoving = true; //Update Pylon Statew 
 
         //Cycle position forward
         if (currentPos < positions.Count() - 1 && cycleForward)
@@ -126,7 +171,7 @@ public class CrystalPylon : MonoBehaviour
         }
 
         //Set Sprite Direction
-        gameObject.GetComponent<SpriteRenderer>().sprite = pylonStates[beamDirection];
+        UpdatePylonState();
     }
 
     public void TriggerPylon()

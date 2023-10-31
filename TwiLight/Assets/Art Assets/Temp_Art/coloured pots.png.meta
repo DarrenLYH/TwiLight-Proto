@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d9681ef55dcb1564cabff1b9835d329b
+guid: ecae8bd6b0012a84a91965b7625235b7
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 512
+  spritePixelsToUnits: 256
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,76 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: m2 sprites_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1280
-        width: 640
-        height: 640
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a90fa221cf16a9f4398aca52ee17c6a0
-      internalID: 122808943
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: m2 sprites_1
-      rect:
-        serializedVersion: 2
-        x: 640
-        y: 1280
-        width: 640
-        height: 640
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ddf26e3b19959b74dac3ecf55b06305d
-      internalID: 905107796
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: m2 sprites_2
-      rect:
-        serializedVersion: 2
-        x: 1280
-        y: 1280
-        width: 640
-        height: 640
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0d206dbda48ba6e4380e3245bac39de6
-      internalID: -2147085706
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: m2 sprites_3
+      name: coloured pots_0
       rect:
         serializedVersion: 2
         x: 0
         y: 640
-        width: 640
-        height: 640
+        width: 320
+        height: 320
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +124,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ef6fdb096200087428a56b9a5c90acc3
-      internalID: 974529951
+      spriteID: 4c4d82857054c064ebfec85435b9ddb8
+      internalID: -715178874
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: m2 sprites_4
+      name: coloured pots_1
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 640
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4fd2ea27997ecc479bf017d62eb1d33
+      internalID: 328506516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: coloured pots_2
       rect:
         serializedVersion: 2
         x: 640
         y: 640
-        width: 640
-        height: 640
+        width: 320
+        height: 320
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 363bdcd5d16d38146b3bea81dde71618
-      internalID: 1782382793
+      spriteID: d1758dc20b0ac9b49b37ba0d86d7ebdd
+      internalID: 1306337652
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: m2 sprites_5
+      name: coloured pots_3
       rect:
         serializedVersion: 2
-        x: 1280
-        y: 640
-        width: 640
-        height: 640
+        x: 0
+        y: 320
+        width: 320
+        height: 320
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,20 +187,83 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 155d132a56d363f48a388fc29f357d50
-      internalID: -635740791
+      spriteID: ecc53b032f497574f985f5ff0bd67a15
+      internalID: -96989153
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: m2 sprites_6
+      name: coloured pots_4
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 320
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc4c63c86e520f34287dac077b985413
+      internalID: -1941511908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: coloured pots_5
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 320
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 288bd298d986866488d963483276214c
+      internalID: 1594350996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: coloured pots_6
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 320
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd43d88713911c946b2e9f2a8f44585c
+      internalID: -1881716572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: coloured pots_7
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 640
-        height: 640
+        width: 320
+        height: 320
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,20 +271,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 681382495e7b30b478510e772f2b9d50
-      internalID: 70840570
+      spriteID: adca89f48f452c14d843d7a2a1fc1527
+      internalID: 123738937
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: m2 sprites_7
+      name: coloured pots_8
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5686faad57ba0dc40aff1a9525ab9e3b
+      internalID: 1891534150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: coloured pots_9
       rect:
         serializedVersion: 2
         x: 640
         y: 0
-        width: 640
-        height: 640
+        width: 320
+        height: 320
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -271,20 +313,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 422f2e507cd6ca14fac6cca4806c4c7d
-      internalID: 492927472
+      spriteID: 834317cfeebee1a41af16dd8e82de925
+      internalID: -483114595
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: m2 sprites_8
+      name: coloured pots_10
       rect:
         serializedVersion: 2
-        x: 1280
+        x: 960
         y: 0
-        width: 640
-        height: 640
+        width: 320
+        height: 320
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -292,8 +334,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5218dee3c89a4c047935f2894fe0fa7c
-      internalID: 162133362
+      spriteID: 7940a586e95803345bd07ca4e54d616b
+      internalID: -1826821014
       vertices: []
       indices: 
       edges: []
@@ -309,15 +351,17 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      m2 sprites_0: 122808943
-      m2 sprites_1: 905107796
-      m2 sprites_2: -2147085706
-      m2 sprites_3: 974529951
-      m2 sprites_4: 1782382793
-      m2 sprites_5: -635740791
-      m2 sprites_6: 70840570
-      m2 sprites_7: 492927472
-      m2 sprites_8: 162133362
+      coloured pots_0: -715178874
+      coloured pots_1: 328506516
+      coloured pots_10: -1826821014
+      coloured pots_2: 1306337652
+      coloured pots_3: -96989153
+      coloured pots_4: -1941511908
+      coloured pots_5: 1594350996
+      coloured pots_6: -1881716572
+      coloured pots_7: 123738937
+      coloured pots_8: 1891534150
+      coloured pots_9: -483114595
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

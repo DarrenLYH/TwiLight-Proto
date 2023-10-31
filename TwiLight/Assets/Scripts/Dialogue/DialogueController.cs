@@ -13,6 +13,7 @@ public class DialogueController : MonoBehaviour
     public GameObject buttonTwo;
     public GameObject elioPortrait;
     public GameObject daraPortrait;
+    public GameObject nextPrompt;           //Prompt to click Next
     public TextMeshProUGUI speakerName;     //Speaker Name
     public TextMeshProUGUI dialogueDisplay; //Dialogue Text
     public TextMeshProUGUI buttonOneText;   //Choice Button Content
@@ -204,9 +205,6 @@ public class DialogueController : MonoBehaviour
     #region Button Functionality
     public void SelectChoiceA()
     {
-        //Play SFX
-        AudioController.instance.PlaySFX("button", 0.05f);
-
         //Assigns next ID to the dialogue
         AssignDialogue(choiceA[1]);
 
@@ -218,9 +216,6 @@ public class DialogueController : MonoBehaviour
 
     public void SelectChoiceB()
     {
-        //Play SFX
-        AudioController.instance.PlaySFX("button", 0.05f);
-
         //Assigns next ID to the dialogue
         AssignDialogue(choiceB[1]);
 
@@ -234,12 +229,14 @@ public class DialogueController : MonoBehaviour
     {
         buttonOne.SetActive(true);
         buttonTwo.SetActive(true);
+        nextPrompt.SetActive(false);
     }
 
     public void DisableButtons()
     {
         buttonOne.SetActive(false);
         buttonTwo.SetActive(false);
+        nextPrompt.SetActive(true);
     }
     #endregion
 

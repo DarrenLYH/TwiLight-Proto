@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 
-public class LO_CrystalActivator : LightableObject
+public class CrystalActivator : MonoBehaviour
 {
     //Object Components
     [SerializeField] private LayerMask contactCheck;
@@ -14,6 +14,7 @@ public class LO_CrystalActivator : LightableObject
     Vector2 direction;
 
     //Object State
+    public bool isTriggered;
     public bool isToggled;
 
     public void ToggleActivator()
@@ -32,12 +33,6 @@ public class LO_CrystalActivator : LightableObject
             StartCoroutine(DelayedShutoff());
             Debug.Log("Crystal Deactivated");
         }
-    }
-
-    public override void OnHitEnter()
-    {
-        isLit = true;
-        //Override Default Action
     }
 
     #region Beam Emitter

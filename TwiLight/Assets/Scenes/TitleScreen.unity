@@ -1118,7 +1118,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Demo Version 0.1.5
+  m_text: Demo Version 0.2.0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: db248aa4fdd7bf84787cedddfa672339, type: 2}
   m_sharedMaterial: {fileID: 7709746093480124329, guid: db248aa4fdd7bf84787cedddfa672339, type: 2}
@@ -1287,7 +1287,19 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: DemoLevelM2
+          m_StringArgument: Cutscene
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1726452317}
+        m_TargetAssemblyTypeName: AudioController, Assembly-CSharp
+        m_MethodName: PlayButtonSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1513072771
@@ -1491,6 +1503,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 3008a90941eb4b04da64bb769508a68c, type: 3}
   bgmSource: {fileID: 718756556}
   sfxSource: {fileID: 857766595}
+  buttonSound: 
 --- !u!4 &1726452318
 Transform:
   m_ObjectHideFlags: 0
@@ -1594,6 +1607,18 @@ MonoBehaviour:
       - m_Target: {fileID: 801498737}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
         m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1726452317}
+        m_TargetAssemblyTypeName: AudioController, Assembly-CSharp
+        m_MethodName: PlayButtonSFX
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -17,7 +17,7 @@ public class InventoryScript : MonoBehaviour
         //Open/Close Inventory
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            AudioController.instance.PlaySFX("invOpen", 0.5f);
+            AudioController.instance.PlaySFX("invOpen", 0.05f);
             ToggleInventory();
         }
     }

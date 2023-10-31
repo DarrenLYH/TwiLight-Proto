@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d9681ef55dcb1564cabff1b9835d329b
+guid: dd16b5eafeea6064b95e266a63b7981b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 512
+  spritePixelsToUnits: 128
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: m2 sprites_0
+      name: sparkle spritesheet_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 1280
-        width: 640
-        height: 640
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a90fa221cf16a9f4398aca52ee17c6a0
-      internalID: 122808943
+      spriteID: 9bd855cc8bba30742bcaea6f7cb5cf25
+      internalID: 187018312
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: m2 sprites_1
+      name: sparkle spritesheet_1
       rect:
         serializedVersion: 2
-        x: 640
-        y: 1280
-        width: 640
-        height: 640
+        x: 128
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ddf26e3b19959b74dac3ecf55b06305d
-      internalID: 905107796
+      spriteID: e15b246e1673a104d9b991d51b9fee4a
+      internalID: -11580449
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: m2 sprites_2
+      name: sparkle spritesheet_2
       rect:
         serializedVersion: 2
-        x: 1280
-        y: 1280
-        width: 640
-        height: 640
+        x: 256
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0d206dbda48ba6e4380e3245bac39de6
-      internalID: -2147085706
+      spriteID: 27d0bfd3ac3b4124c9970e9741829d96
+      internalID: 1940191480
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: m2 sprites_3
+      name: sparkle spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53f1a1aacdee40d4193ef5059eb86fef
+      internalID: -1079732783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sparkle spritesheet_4
       rect:
         serializedVersion: 2
         x: 0
-        y: 640
-        width: 640
-        height: 640
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ef6fdb096200087428a56b9a5c90acc3
-      internalID: 974529951
+      spriteID: af1eec5a5bc8d7e4dbd7c4a9a877a014
+      internalID: 2139011748
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: m2 sprites_4
+      name: sparkle spritesheet_5
       rect:
         serializedVersion: 2
-        x: 640
-        y: 640
-        width: 640
-        height: 640
+        x: 128
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,20 +229,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 363bdcd5d16d38146b3bea81dde71618
-      internalID: 1782382793
+      spriteID: 192b37b731938394480c819aeb872fbf
+      internalID: -2019242508
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: m2 sprites_5
+      name: sparkle spritesheet_6
       rect:
         serializedVersion: 2
-        x: 1280
-        y: 640
-        width: 640
-        height: 640
+        x: 256
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,20 +250,62 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 155d132a56d363f48a388fc29f357d50
-      internalID: -635740791
+      spriteID: 39e3464465007484e97a7f6025ecc637
+      internalID: 838355525
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: m2 sprites_6
+      name: sparkle spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bee2ba9256736014cbbde37a9c54c460
+      internalID: -1595753745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sparkle spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2899420175b8e7428a46496c001b520
+      internalID: -803228119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sparkle spritesheet_9
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 640
-        height: 640
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,20 +313,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 681382495e7b30b478510e772f2b9d50
-      internalID: 70840570
+      spriteID: b1b11afaaf43cc743865363e72f612ed
+      internalID: -1420772771
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: m2 sprites_7
+      name: sparkle spritesheet_10
       rect:
         serializedVersion: 2
-        x: 640
+        x: 128
         y: 0
-        width: 640
-        height: 640
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -271,20 +334,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 422f2e507cd6ca14fac6cca4806c4c7d
-      internalID: 492927472
+      spriteID: f59d010bb0068cf418214d046a475370
+      internalID: 75626627
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: m2 sprites_8
+      name: sparkle spritesheet_11
       rect:
         serializedVersion: 2
-        x: 1280
+        x: 256
         y: 0
-        width: 640
-        height: 640
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -292,8 +355,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5218dee3c89a4c047935f2894fe0fa7c
-      internalID: 162133362
+      spriteID: 6c5bcc6785b54aa46a23d1119b56d789
+      internalID: 405989153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sparkle spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dbbe0d7ba961f1408edfc57fdfcdc8c
+      internalID: -2132383585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sparkle spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c656a587786cdce4d8685f06e6bc4167
+      internalID: 1586325092
       vertices: []
       indices: 
       edges: []
@@ -309,15 +414,20 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      m2 sprites_0: 122808943
-      m2 sprites_1: 905107796
-      m2 sprites_2: -2147085706
-      m2 sprites_3: 974529951
-      m2 sprites_4: 1782382793
-      m2 sprites_5: -635740791
-      m2 sprites_6: 70840570
-      m2 sprites_7: 492927472
-      m2 sprites_8: 162133362
+      sparkle spritesheet_0: 187018312
+      sparkle spritesheet_1: -11580449
+      sparkle spritesheet_10: 75626627
+      sparkle spritesheet_11: 405989153
+      sparkle spritesheet_12: -2132383585
+      sparkle spritesheet_13: 1586325092
+      sparkle spritesheet_2: 1940191480
+      sparkle spritesheet_3: -1079732783
+      sparkle spritesheet_4: 2139011748
+      sparkle spritesheet_5: -2019242508
+      sparkle spritesheet_6: 838355525
+      sparkle spritesheet_7: -1595753745
+      sparkle spritesheet_8: -803228119
+      sparkle spritesheet_9: -1420772771
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

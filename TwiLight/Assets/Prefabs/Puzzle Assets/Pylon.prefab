@@ -163,7 +163,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5477516089910997243}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -184,15 +184,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInteractible: 0
+  isBroken: 0
   isMovable: 0
   isMoving: 0
-  isRotatable: 0
+  isRotatable: 1
   pylonStates:
   - {fileID: 118958790, guid: 54259eefb7f4dc54290a263c67753199, type: 3}
   - {fileID: -2079264335, guid: 54259eefb7f4dc54290a263c67753199, type: 3}
   - {fileID: 2092472587, guid: 54259eefb7f4dc54290a263c67753199, type: 3}
   - {fileID: -838770229, guid: 54259eefb7f4dc54290a263c67753199, type: 3}
-  positions: []
+  - {fileID: -1624505775, guid: c14882c629dfcf340989b5bd82f47ecc, type: 3}
+  states: []
   contactCheck:
     serializedVersion: 2
     m_Bits: 10240

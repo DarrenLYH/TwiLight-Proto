@@ -55,12 +55,12 @@ public class PlayerScript : MonoBehaviour
             //SFX
             if (currentLight == 1 && Input.GetMouseButtonDown(0))
             {
-                AudioController.instance.PlaySFX("candle", 1f);
+                AudioController.instance.PlaySFX("candle", 0.5f);
             }
 
             if (currentLight == 2 && Input.GetMouseButtonDown(0))
             {
-                AudioController.instance.PlaySFX("torch", 1f);
+                AudioController.instance.PlaySFX("torch", 0.5f);
             }
 
             //Toggle Light On/Offs

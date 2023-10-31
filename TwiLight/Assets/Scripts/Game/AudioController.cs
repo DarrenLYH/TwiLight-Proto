@@ -9,10 +9,11 @@ public class AudioController : MonoBehaviour
     public Sound[] bgmLibrary, sfxLibrary;
     public AudioSource bgmSource, sfxSource;
 
+    //Audio Controller & Properties
     public static AudioController instance;
     public static float sfxVol;
     public static float bgmVol;
-
+    public string buttonSound;
     private void Awake()
     {
         //Instantiate AudioController
@@ -30,11 +31,13 @@ public class AudioController : MonoBehaviour
 
     private void Start()
     {
+        //Default Volume Settings
         BGMVolume(0.05f);
         SFXVolume(0.5f);
         PlayBGM("placeholder");
     }
 
+    #region Audio Triggers
     public void PlayBGM(string name)
     {
         Sound clip = Array.Find(bgmLibrary, x => x.name == name);
@@ -73,6 +76,14 @@ public class AudioController : MonoBehaviour
         }
     }
 
+    //Default Button SFX method
+    public void PlayButtonSFX()
+    {
+        PlaySFX(buttonSound, 0.05f);
+    }
+    #endregion
+
+    //Method to Adjust Global Volume Settings (Unused)
     public void BGMVolume(float volume)
     {
         bgmVol = volume;

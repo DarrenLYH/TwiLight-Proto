@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class CutsceneController : MonoBehaviour
 {
     public SceneController SC;
-    public Animator anim;
+    public Animator fadeAnimator;
     public GameObject[] storedCutscenes;
     public string[] storedSFX;
     int i = 0;
@@ -29,22 +29,22 @@ public class CutsceneController : MonoBehaviour
     {
         if(i == storedCutscenes.Length)
         {
-            anim.SetBool("isOver", true);
-            Debug.Log("scene unloaded");
-            SC.ToScene("Test");
+            StartCoroutine(Transition());
         }
 
         else
         {
             storedCutscenes[i].SetActive(true);
-            AudioController.instance.PlaySFX(storedSFX[i],1f);
+            AudioController.instance.PlaySFX(storedSFX[i],0.5f);
             i++;
         }
     }
     
-    public IEnumerator Cutscene()
+    public IEnumerator Transition()
     {
-        //TBC
-        return null;
+        fadeAnimator.SetBool("isOver",true);
+        yield return new WaitForSeconds(5f);
+        Debug.Log("scene unloaded");
+        SC.ToScene("FullLevelM2");
     }
 }
