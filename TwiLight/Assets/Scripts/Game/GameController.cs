@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+
+//Overall Game Systems Controller 
+//UI elements, Game State Functions & Controls
 
 public class GameController : MonoBehaviour
 {
@@ -30,7 +34,7 @@ public class GameController : MonoBehaviour
 
     //Game States
     public bool isPaused = false;
-    public bool inScreenUI = false; //Whether Puzzle Interface is open/close
+    public bool inScreenUI = false; //Whether Puzzle Interface is opened/closed
 
     private void Awake()
     {
@@ -114,12 +118,14 @@ public class GameController : MonoBehaviour
     //Update UI Display
     public void DisplayHeldItem()
     {
+        //Update Current Held Item
         if(PS.lightLevel > 0)
         {
             int i = PS.currentLight - 1;
             heldItem.GetComponent<Image>().sprite = heldSprites[i];
         }
 
+        //Display Control Hints
         if(PS.lightLevel > 1)
         {
             hintSwitch.SetActive(true);
@@ -135,6 +141,7 @@ public class GameController : MonoBehaviour
             hintActivate.SetText("LMB");
         }
 
+        //Unused Debugging UI
         levelIndicator.SetText("Current Torch: " + PS.currentLight);
     }
 
@@ -161,13 +168,14 @@ public class GameController : MonoBehaviour
 
     #region Player Functions
 
+    //Enable Player Script/Input
     public void EnablePlayer()
     {
         PS.enabled = true;
         INV.enabled = true;
     }
 
-    //Disable Player Script / Input
+    //Disable Player Script/Input
     public void DisablePlayer()
     {
         PS.animator.SetFloat("Speed", 0);
@@ -184,11 +192,13 @@ public class GameController : MonoBehaviour
         DisplayHeldItem();
     }
 
+    //Get player's overall Level
     public int GetPlayerLevel()
     {
         return PS.lightLevel;
     }
 
+    //Get player's current held Light
     public int GetPlayerLight()
     {
         return PS.currentLight;

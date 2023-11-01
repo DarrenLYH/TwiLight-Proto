@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Class to store Dialogue information(JSON)
+
 [System.Serializable]
 public class DialogueRefData
 {

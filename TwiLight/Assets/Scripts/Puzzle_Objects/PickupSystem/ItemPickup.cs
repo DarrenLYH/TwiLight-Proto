@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-//using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
+
+//Script for other item
 
 public class ItemPickup : PickupObject
 {
-    GameObject prefabUI;
-
     public override void DoObjectEffect()
     {
+        //Add Item to Player Inventory
         if (playerInventory.AddItem(this))
         {
             Destroy(this.gameObject);

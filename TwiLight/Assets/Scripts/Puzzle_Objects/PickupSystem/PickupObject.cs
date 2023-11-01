@@ -7,6 +7,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Parent Class for Objects that can be picked up
+
 public class PickupObject : MonoBehaviour
 {
     //Reference to Player Inventory
@@ -21,7 +23,7 @@ public class PickupObject : MonoBehaviour
     private void Start()
     {
         playerInventory = GameController.instance.GetComponentInChildren<InventoryScript>();
-        //InstantiateObject();
+        InstantiateObject();
     }
 
     private void Update()
@@ -35,6 +37,7 @@ public class PickupObject : MonoBehaviour
         }
     }
 
+    //Update Item Info
     public void InstantiateObject()
     {
         gameObject.name = itemName;
@@ -43,7 +46,7 @@ public class PickupObject : MonoBehaviour
 
     public virtual void DoObjectEffect() 
     {
-
+        //Method for specific effects
     }
 
     #region Contact Check

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using UnityEngine;
 
+//Script for Objects using a passcode lock
+
 public class PasscodeObject : MonoBehaviour
 {
     public GameObject PasscodeScreen;
@@ -10,15 +12,20 @@ public class PasscodeObject : MonoBehaviour
     protected bool isOpen = false; //Passcode Screen State
 
     //Object Parameters
-    protected bool isTouching = false; //Player touching object
-    public bool isSolved = false;
+    protected bool isTouching = false; //Check if player touching object
+    public bool isSolved = false;      //Puzzle State
 
-    // Update is called once per frame
     public void Update()
     {
         //If Object has not been unlocked and Player is interacting
         if (!isSolved && isTouching && Input.GetKeyDown(KeyCode.E))
         {
+            //Cheat Code to Activate Item Immediately
+            if (objPasscode == 6969)
+            {
+                DoUnlockAction();
+            }
+
             ToggleScreen(isOpen);
             //insert lock sound here
         }

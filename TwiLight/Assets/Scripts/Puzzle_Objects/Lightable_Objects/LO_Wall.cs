@@ -10,6 +10,10 @@ public class LO_Wall : LightableObject
     public Collider2D wallFace;    //Wall Collider for Movement(No Raycasting)
     public GameObject areaHider;   //Darkness for obstructing view
 
+    //Variables for when used in Crystal Puzzle
+    public CrystalPuzzleManager PM = null;
+    public bool isPuzzleElement = false;
+
     public override void ActivateInteraction()
     {
         StartCoroutine(WallDissapear());
@@ -23,18 +27,19 @@ public class LO_Wall : LightableObject
     //Coroutine ensures Player has some time to pass through
     public IEnumerator WallDissapear()
     {
-        ToggleWall(false);
+        ToggleWall(false);//Make Wall Dissapear
 
+        //Wait till wall is no longer lit up
         while(isLit != false)
         {
             yield return null;
         }
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.5f);//Delay so player doesn't get stuck
         
         if (isTriggered == false)
         {
-            ToggleWall(true);
+            ToggleWall(true);//Make Wall Reappear
             yield break;
         }   
     }
@@ -62,7 +67,7 @@ public class LO_Wall : LightableObject
             int newLayer = LayerMask.NameToLayer("Vis - Invis");
             objCollider.gameObject.layer = newLayer; //Raycast Can Pass
             
-            //Player Cannot Pass
+            //Player Can Pass
             objCollider.isTrigger = true; 
             wallFace.isTrigger = true;
 
@@ -70,6 +75,12 @@ public class LO_Wall : LightableObject
             objCollider.gameObject.GetComponent<Tilemap>().color = new Color(1f, 1f, 1f, 0.25f);
             wallFace.gameObject.GetComponent<Tilemap>().color = new Color(1f, 1f, 1f, 0.25f);
             areaHider.GetComponent<Tilemap>().color = new Color(1f, 1f, 1f, 0.25f);
+        }
+        
+        if (isPuzzleElement)
+        {
+            PM.UpdatePuzzle();
+            Debug.Log("Recalculate (Triggered by Wall)");
         }
     }
 }

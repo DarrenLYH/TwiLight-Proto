@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
+//Specific Function for Chests 
+
 public class PasscodeChest : PasscodeObject
 {
     public Sprite[] sprites;

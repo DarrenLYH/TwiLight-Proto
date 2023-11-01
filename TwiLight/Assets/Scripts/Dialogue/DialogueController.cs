@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Rendering.Universal;
 
+//Overall Dialogue System Controller
+
 public class DialogueController : MonoBehaviour
 {
     //UI Elements
@@ -32,7 +34,6 @@ public class DialogueController : MonoBehaviour
     //Dialogue State
     public bool isEndDialogue = false;
     bool isChoosing;
-
 
     void Update()
     {

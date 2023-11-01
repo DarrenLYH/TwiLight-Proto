@@ -4,6 +4,7 @@ using UnityEngine;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
 //Class to store processed Dialogue Data
+
 public class DialogueData
 {
     public string dialogueLineID { get; }

@@ -4,6 +4,8 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Script for Player Inventory 
+
 public class InventoryScript : MonoBehaviour
 {
     public GameObject[] itemDisplay;
@@ -86,7 +88,6 @@ public class InventoryScript : MonoBehaviour
 
     public void RemoveItem(string name)
     {
-        //int itemID = 0;
         bool updateList = false;
 
         for (int i = 0; i < itemDisplay.Count(); i++)
@@ -123,6 +124,6 @@ public class InventoryScript : MonoBehaviour
             }
         }
 
-        //updateList = false;
+        //updateList = false; //idk why I put this here
     }
 }

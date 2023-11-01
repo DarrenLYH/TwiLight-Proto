@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//Controller for Scene Switching 
+
 public class SceneController : MonoBehaviour
 {
     public void ToScene(string destination)

@@ -6,6 +6,8 @@ using UnityEngine;
 public class KeyDoor : MonoBehaviour
 {
     public GameObject door;
+    public GameObject doorBlocker;
+    public Sprite doorOpen;
     public string[] requiredKeys;
 
     bool isTouching = false;
@@ -44,7 +46,9 @@ public class KeyDoor : MonoBehaviour
             }
 
             AudioController.instance.PlaySFX("doorOpen", 1f);
-            door.SetActive(false);
+            door.GetComponent<SpriteRenderer>().sprite = doorOpen;
+            door.GetComponent<BoxCollider2D>().enabled = false;
+            doorBlocker.GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 

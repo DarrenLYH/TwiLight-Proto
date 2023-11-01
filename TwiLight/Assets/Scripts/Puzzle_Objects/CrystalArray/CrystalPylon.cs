@@ -26,10 +26,15 @@ public class CrystalPylon : MonoBehaviour
     public LineRenderer LR;
     public int beamDirection;
     Vector2 direction;
+
+    //System Variables
+    CrystalPuzzleManager PM;
+    public CrystalPylon lastHitPylon;
     bool isActive; //if the beam is currently on
 
     private void Awake()
     {
+        PM = GetComponentInParent<CrystalPuzzleManager>();
         UpdatePylonState();
     }
 
@@ -86,8 +91,9 @@ public class CrystalPylon : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, destination, 0.05f);
         }
        
-        if(transform.position == destination)
+        if(isMoving && transform.position == destination)
         {
+            PM.UpdatePuzzle();
             isMoving = false;
         }
     }
@@ -104,6 +110,8 @@ public class CrystalPylon : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().sprite = pylonStates[beamDirection];
         }
     }
+
+    #region Special Functions
 
     public void FixPylon()
     {
@@ -173,96 +181,134 @@ public class CrystalPylon : MonoBehaviour
         //Set Sprite Direction
         UpdatePylonState();
     }
+    #endregion
 
+    #region Lazer Functions
     public void TriggerPylon()
     {
-        if (!isMoving)
-        {
-            Invoke("EmitPylonBeam", 1f);
-            Debug.Log("pylon triggered");
-        }
+        //if (!isMoving)
+        //{
+        Invoke("EmitPylonBeam", 1f);
+        //EmitPylonBeam();
+        Debug.Log("pylon triggered");
+        //}
     }
 
     public void EmitPylonBeam()
     {
-        //Update Pylon State
-        GameController.instance.HideInteractPrompt();
-        isActive = true;
-        int newLayer = LayerMask.NameToLayer("PylonActivated");
-        gameObject.layer = newLayer;
-
-        //Generate Beam
-        LR.positionCount = 2;
-        switch (beamDirection)
+        if (!isBroken)
         {
-            //Beam Up
-            case 0:
-                direction = Vector2.up;
-                break;
+            //Update Pylon State
+            GameController.instance.HideInteractPrompt();
+            isActive = true;
+
+            //Redundant
+            //int newLayer = LayerMask.NameToLayer("PylonActivated");
+            //gameObject.layer = newLayer;
+
+            //Generate Beam
+            LR.positionCount = 2;
+            switch (beamDirection)
+            {
+                //Beam Up
+                case 0:
+                    direction = Vector2.up;
+                    break;
 
 
-            //Beam Down
-            case 1:
-                direction = Vector2.right;
-                break;
+                //Beam Down
+                case 1:
+                    direction = Vector2.right;
+                    break;
 
-            //Beam Left
-            case 2:
-                direction = Vector2.down;
-                break;
+                //Beam Left
+                case 2:
+                    direction = Vector2.down;
+                    break;
 
-            //Beam Right
-            case 3:
-                direction = Vector2.left;
-                break;
+                //Beam Right
+                case 3:
+                    direction = Vector2.left;
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
+
+            //Raycast in the Beam Direction to Check Collision
+            RaycastHit2D hit = Physics2D.Raycast(LR.transform.position, direction, 20f, contactCheck);
+
+            //If Colliding with Pylon > Trigger
+            if (hit.collider && hit.collider.CompareTag("Pylon"))
+            {
+                if (lastHitPylon == null)
+                {
+                    //Set Last Hit Pylon
+                    lastHitPylon = hit.collider.GetComponent<CrystalPylon>();
+
+                    LR.SetPosition(1, LR.transform.InverseTransformPoint(hit.point));
+                    hit.collider.gameObject.SendMessage("TriggerPylon");
+                }
+
+                else if(hit.collider != lastHitPylon)
+                {
+                    lastHitPylon.ShutoffPylon();
+
+                    lastHitPylon = hit.collider.GetComponent<CrystalPylon>();
+
+                    LR.SetPosition(1, LR.transform.InverseTransformPoint(hit.point));
+                    hit.collider.gameObject.SendMessage("TriggerPylon");
+                }
+
+                else
+                {
+                    LR.SetPosition(1, LR.transform.InverseTransformPoint(hit.point));
+                    hit.collider.gameObject.SendMessage("TriggerPylon");
+                }
+            }
+
+            //If Colliding with Receiver > Trigger
+            else if (hit.collider && hit.collider.CompareTag("Receiver"))
+            {
+                LR.SetPosition(1, LR.transform.InverseTransformPoint(hit.point));
+                hit.collider.gameObject.SendMessage("TriggerReceiver");
+            }
+
+            //If Colliding with Wall > Beam to Wall
+            else if (hit.collider && hit.collider.CompareTag("Wall"))
+            {
+                LR.SetPosition(1, LR.transform.InverseTransformPoint(hit.point));
+            }
+
+            else if (hit.collider && hit.collider.CompareTag("SpecialObject"))
+            {
+                if(lastHitPylon != null)
+                {
+                    lastHitPylon.ShutoffPylon();
+                    lastHitPylon = null;
+                }
+
+                LR.SetPosition(1, LR.transform.InverseTransformPoint(hit.point));
+            }
+
+            else
+            {
+                Debug.Log("nothing here");
+            }
         }
+    }
 
-        //Raycast in the Beam Direction to Check Collision
-        RaycastHit2D hit = Physics2D.Raycast(LR.transform.position, direction, 20f, contactCheck);
-
-        //If Colliding with Pylon > Trigger
-        if (hit.collider && hit.collider.CompareTag("Pylon"))
+    public void Recalculate()
+    {
+        if (isActive)
         {
-            LR.SetPosition(1, LR.transform.InverseTransformPoint(hit.point));
-            hit.collider.gameObject.SendMessage("TriggerPylon");
-        }
-
-        //If Colliding with Receiver > Trigger
-        else if (hit.collider && hit.collider.CompareTag("Receiver"))
-        {
-            LR.SetPosition(1, LR.transform.InverseTransformPoint(hit.point));
-            hit.collider.gameObject.SendMessage("TriggerReceiver");
-        }
-
-        //If Colliding with Wall > Beam to Wall
-        else if (hit.collider && hit.collider.CompareTag("Wall"))
-        {
-            LR.SetPosition(1, LR.transform.InverseTransformPoint(hit.point));
-        }
-        
-        else if (hit.collider && hit.collider.CompareTag("SpecialObject"))
-        {
-            LR.SetPosition(1, LR.transform.InverseTransformPoint(hit.point));
-        }
-
-        else
-        {
-            Debug.Log("nothing here");
+            Debug.Log("pylon Recalculate...");
+            EmitPylonBeam();
         }
     }
 
     public void ShutoffPylon()
     {
-        StartCoroutine(TurnOff());
-    }
-
-    IEnumerator TurnOff()
-    {
-        yield return new WaitForSeconds(0.5f);
-
         LR.positionCount = 0;
         RaycastHit2D hit = Physics2D.Raycast(LR.transform.position, direction, 20f, activeEntityCheck);
 
@@ -277,12 +323,10 @@ public class CrystalPylon : MonoBehaviour
             hit.collider.gameObject.SendMessage("ShutoffReceiver");
         }
 
-        int newLayer = LayerMask.NameToLayer("Pylon");
-        gameObject.layer = newLayer;
         isActive = false;
-        yield break;
     }
-
+    #endregion
+    
     #region Contact Check
     void OnCollisionEnter2D(Collision2D collision)
     {

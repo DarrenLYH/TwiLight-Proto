@@ -2,34 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Controller for Player's Footsteps Audio
+
 public class FootstepController : MonoBehaviour
 {
-    public AudioClip[] footstepSounds; // Array to hold footstep sound clips
-    public float minTimeBetweenFootsteps = 0.3f; // Minimum time between footstep sounds
-    public float maxTimeBetweenFootsteps = 0.6f; // Maximum time between footstep sounds
+    public AudioClip[] footstepSounds; //Footstep Audio Clips
+    
+    //Range of time between footsteps
+    public float minTimeBetweenFootsteps = 0.3f; 
+    public float maxTimeBetweenFootsteps = 0.6f;
 
-    private AudioSource audioSource; // Reference to the Audio Source component
-    public bool isWalking = false; // Flag to track if the player is walking
-    private float timeSinceLastFootstep; // Time since the last footstep sound
+    private AudioSource audioSource;
+    public bool isWalking = false; //Bool to check if the player is walking
+    private float timeSinceLastFootstep;
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>(); // Get the Audio Source component
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
-        // Check if the player is walking
+        //Check if player is walking
         if (isWalking)
         {
-            // Check if enough time has passed to play the next footstep sound
+            //Check if enough time has passed to play the next footstep sound
             if (Time.time - timeSinceLastFootstep >= Random.Range(minTimeBetweenFootsteps, maxTimeBetweenFootsteps))
             {
-                // Play a random footstep sound from the array
+                //Play a random footstep sound
                 AudioClip footstepSound = footstepSounds[Random.Range(0, footstepSounds.Length)];
                 audioSource.PlayOneShot(footstepSound);
 
-                timeSinceLastFootstep = Time.time; // Update the time since the last footstep sound
+                timeSinceLastFootstep = Time.time; //Uodate Timer
             }
         }
     }

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Controller for Audio
+
 public class AudioController : MonoBehaviour
 {
     //Array to store audio files
@@ -11,9 +13,9 @@ public class AudioController : MonoBehaviour
 
     //Audio Controller & Properties
     public static AudioController instance;
-    public static float sfxVol;
-    public static float bgmVol;
-    public string buttonSound;
+    public static float sfxVol; //Global SFX Value
+    public static float bgmVol; //Global BGM Value
+    public string buttonSound;  //Default Button Sound to play
     private void Awake()
     {
         //Instantiate AudioController
@@ -34,10 +36,12 @@ public class AudioController : MonoBehaviour
         //Default Volume Settings
         BGMVolume(0.05f);
         SFXVolume(0.5f);
+
+        //Play BGM on Start
         PlayBGM("placeholder");
     }
 
-    #region Audio Triggers
+    #region Audio Triggers / Controls
     public void PlayBGM(string name)
     {
         Sound clip = Array.Find(bgmLibrary, x => x.name == name);
@@ -76,13 +80,14 @@ public class AudioController : MonoBehaviour
         }
     }
 
-    //Default Button SFX method
+    //Default Button SFX Method (Can be triggered by Button)
     public void PlayButtonSFX()
     {
         PlaySFX(buttonSound, 0.05f);
     }
     #endregion
 
+    #region Global Volume Settings (Unused)
     //Method to Adjust Global Volume Settings (Unused)
     public void BGMVolume(float volume)
     {
@@ -95,4 +100,5 @@ public class AudioController : MonoBehaviour
         sfxVol = volume;
         sfxSource.volume = sfxVol;
     }
+    #endregion
 }

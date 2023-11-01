@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Pickup to Upgrade Player Level
+
 public class LightPickup : PickupObject
 {
     public override void DoObjectEffect()

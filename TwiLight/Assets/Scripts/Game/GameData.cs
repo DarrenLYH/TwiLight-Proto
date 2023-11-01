@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Collection of all Game Data
+
 [System.Serializable]
 public class GameData
 {

@@ -7,6 +7,8 @@ public class TorchPuzzleScript : MonoBehaviour
 {
     public PuzzleTorch[] torchSet;
     public GameObject door;
+    public GameObject doorBlocker;
+    public Sprite doorOpen;
 
     public bool isSolved = false;
 
@@ -43,6 +45,8 @@ public class TorchPuzzleScript : MonoBehaviour
 
         isSolved = true;
         AudioController.instance.PlaySFX("doorOpen", 0.25f);
-        door.SetActive(false);
+        door.GetComponent<SpriteRenderer>().sprite = doorOpen;
+        doorBlocker.GetComponent<BoxCollider2D>().enabled = false;
+        door.GetComponent<BoxCollider2D>().enabled = false;
     }
 }

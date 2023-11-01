@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEngine;
 
 //Class to process and convert Data to a readable form
+
 public class DataManager : MonoBehaviour
 {
     public static DataManager instance;

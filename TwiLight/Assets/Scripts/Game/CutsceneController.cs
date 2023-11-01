@@ -4,21 +4,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//Controller for cutscenes and transition animation
+
 public class CutsceneController : MonoBehaviour
 {
     public SceneController SC;
-    public Animator fadeAnimator;
-    public GameObject[] storedCutscenes;
-    public string[] storedSFX;
-    int i = 0;
+    public Animator fadeAnimator;        //Transition Animator Componenet
+    public GameObject[] storedCutscenes; //Cutscenes to Display
+    public string[] storedSFX;           //SFX to Play
+    int i = 0; //indexer
 
     private void Start()
     {
-        ProgressCutscene();
+        ProgressCutscene(); //Start playing cutscenes
     }
 
     private void Update()
     {
+        //Move to next cutscene on click
         if(Input.GetMouseButtonDown(0))
         {
             ProgressCutscene();

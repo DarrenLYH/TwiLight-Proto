@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
+//Controller for Passcode System
+
 public class PasscodeScript : MonoBehaviour
 {
     public int passcode;             //The currently stored Passcode
