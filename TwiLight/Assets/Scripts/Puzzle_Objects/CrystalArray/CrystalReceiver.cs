@@ -7,13 +7,15 @@ public class CrystalReceiver : MonoBehaviour
     CrystalPuzzleManager PM;
 
     public GameObject activationLight;
-    public GameObject activatedEntity; //Object triggered/affected by the Receiver
     public Sprite[] receiverStates;
 
-    //temp
-    public GameObject prefab;
+    public GameObject activatedEntity = null; //Object triggered/affected by the Receiver
+    public GameObject entityCollider = null;
+    public Sprite doorOpen;
+
     public bool isPermanent = false;
     public bool isActivated = false;
+    public bool eventTriggered = false;
 
     private void Awake()
     {
@@ -23,12 +25,21 @@ public class CrystalReceiver : MonoBehaviour
     {
         //Activate Effect
         activationLight.SetActive(true);
+        gameObject.GetComponent<SpriteRenderer>().sprite = receiverStates[1];
+        isActivated = true;
+        AudioController.instance.PlaySFX("levelup", 1f);
 
-        if (!isActivated)
+        if (activatedEntity != null && !eventTriggered)
         {
-            isActivated = true;
-            gameObject.GetComponent<SpriteRenderer>().sprite = receiverStates[1];
+            eventTriggered = true;
+
+            AudioController.instance.PlaySFX("doorOpen", 1f);
+            activatedEntity.GetComponent<SpriteRenderer>().sprite = doorOpen;
+            activatedEntity.GetComponent<BoxCollider2D>().enabled = false;
+            entityCollider.GetComponent<BoxCollider2D>().enabled = false;
         }
+
+        PM.CheckPuzzleState();
     }
 
     public void ShutoffReceiver()

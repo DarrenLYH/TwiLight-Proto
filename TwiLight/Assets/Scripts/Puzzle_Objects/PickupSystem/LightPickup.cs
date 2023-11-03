@@ -6,18 +6,17 @@ using UnityEngine;
 
 public class LightPickup : PickupObject
 {
+    public string cutsceneID;
+    public string lineID;
+
     public override void DoObjectEffect()
-    { 
+    {
+        AudioController.instance.PlaySFX("levelup", 1f);
+
         //Increase Player LL & Start Dialogue
-        Debug.Log("oh hai");
         GameController.instance.PlayerLevelUp();
         GameController.instance.DisplayHeldItem();
-        GameController.instance.DC.StartDialogue("03", "0301");
-        
-        if (GameController.instance.GetPlayerLevel() == 3)
-        {
-            //GameController.instance.ToggleEndScreen();
-        }
+        GameController.instance.DC.StartDialogue(cutsceneID, lineID);
 
         Destroy(this.gameObject);
     }

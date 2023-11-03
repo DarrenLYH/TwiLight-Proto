@@ -50,6 +50,11 @@ public class KeyDoor : MonoBehaviour
             door.GetComponent<BoxCollider2D>().enabled = false;
             doorBlocker.GetComponent<BoxCollider2D>().enabled = false;
         }
+
+        else
+        {
+            GameController.instance.DC.StartDialogue("locked", "l01");
+        }
     }
 
     #region Contact Check

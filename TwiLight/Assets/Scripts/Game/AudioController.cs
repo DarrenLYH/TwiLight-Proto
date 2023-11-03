@@ -79,6 +79,10 @@ public class AudioController : MonoBehaviour
             sfxSource.Play();
         }
     }
+    public void StopSFX()
+    {
+        sfxSource.Stop();
+    }
 
     //Default Button SFX Method (Can be triggered by Button)
     public void PlayButtonSFX()

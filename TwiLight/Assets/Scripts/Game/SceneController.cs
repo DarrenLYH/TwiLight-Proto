@@ -15,6 +15,7 @@ public class SceneController : MonoBehaviour
 
     public void ToTitle()
     {
+        AudioController.instance.PlaySFX("button", 0.05f);
         GameController.instance.TogglePause();  //Unpause Game
         GameController.instance.SelfDestruct(); //Reset GameController
         SceneManager.LoadScene("TitleScreen");
@@ -22,6 +23,7 @@ public class SceneController : MonoBehaviour
 
     public void QuitGame()
     {
+        AudioController.instance.PlaySFX("button", 0.05f);
         Debug.Log("Game Quit");
         Application.Quit();
     }

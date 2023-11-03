@@ -17,22 +17,20 @@ public class PickupObject : MonoBehaviour
     //Item Values
     public string itemName;
     public Sprite itemImage;
-    bool isTouching = false;
+    public bool isTouching = false;
 
     //temp
     private void Start()
     {
         playerInventory = GameController.instance.GetComponentInChildren<InventoryScript>();
-        InstantiateObject();
+        //InstantiateObject();
     }
 
-    private void Update()
+    public void Update()
     {
         //Pickup Ability
         if (isTouching && Input.GetKeyDown(KeyCode.E))
         {
-            //Play SFX
-            AudioController.instance.PlaySFX("pickup", 0.05f);
             DoObjectEffect();
         }
     }

@@ -66,6 +66,7 @@ public class GameController : MonoBehaviour
         //Pause Function Check
         if (Input.GetKeyDown(KeyCode.Escape) && !inScreenUI)
         {
+            AudioController.instance.PlaySFX("button", 0.05f);
             TogglePause();
         }
     }
@@ -190,6 +191,9 @@ public class GameController : MonoBehaviour
         PS.lightLevel += 1;
         PS.currentLight = PS.lightLevel;
         DisplayHeldItem();
+
+        PS.levelupAnimator.SetTrigger("LevelUp");
+        AudioController.instance.PlaySFX("levelup",1f);
     }
 
     //Get player's overall Level

@@ -15,6 +15,7 @@ public class DialogueController : MonoBehaviour
     public GameObject buttonTwo;
     public GameObject elioPortrait;
     public GameObject daraPortrait;
+    public GameObject unknownPortrait;
     public GameObject nextPrompt;           //Prompt to click Next
     public TextMeshProUGUI speakerName;     //Speaker Name
     public TextMeshProUGUI dialogueDisplay; //Dialogue Text
@@ -37,9 +38,9 @@ public class DialogueController : MonoBehaviour
 
     void Update()
     {
-        //if (dialogueDisplay.text == currentDialogue.dialogue) //Dialogue Completed
+        if (dialogueDisplay.text == currentDialogue.dialogue) //Dialogue Completed
         {
-            //stop audio
+            AudioController.instance.StopSFX();
         }
 
         //If player clicks when:
@@ -108,7 +109,10 @@ public class DialogueController : MonoBehaviour
 
     IEnumerator TypeLine()
     {
-        //play sfx
+        if (!AudioController.instance.sfxSource.isPlaying)
+        {
+            AudioController.instance.PlaySFX("typewriter", 0.5f);
+        }
 
         foreach (char c in lineContent.ToCharArray()) //Typewriter Effect
         {
@@ -152,6 +156,7 @@ public class DialogueController : MonoBehaviour
         //Display Elio portrait
         if (currentDialogue.currentSpeaker == "Elio")
         {
+            unknownPortrait.SetActive(false);
             elioPortrait.SetActive(true);
             daraPortrait.SetActive(false);
             speakerName.text = "Elio";
@@ -160,15 +165,17 @@ public class DialogueController : MonoBehaviour
         //Display Dara portrait
         else if (currentDialogue.currentSpeaker == "Dara")
         {
+            unknownPortrait.SetActive(false);
             daraPortrait.SetActive(true);
             elioPortrait.SetActive(false);
             speakerName.text = "Dara";
         }
 
         //Display ??? 
-        else if(currentDialogue.currentSpeaker == "Unknown")
+        else if(currentDialogue.currentSpeaker == "???")
         {
-            daraPortrait.SetActive(true);
+            unknownPortrait.SetActive(true);
+            daraPortrait.SetActive(false);
             elioPortrait.SetActive(false);
             speakerName.text = "???";
         }

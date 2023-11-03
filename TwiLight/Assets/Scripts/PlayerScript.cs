@@ -13,6 +13,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject glow;
     
     public Animator animator;
+    public Animator levelupAnimator;
 
     //Player Variables
     Vector2 movement;
@@ -25,6 +26,8 @@ public class PlayerScript : MonoBehaviour
     public bool lampPlaceable = false;
     public bool lampPlaced = false;
     public bool lampContacted = false;
+
+    bool noclipToggle = false;
 
     void Update()
     {
@@ -60,7 +63,7 @@ public class PlayerScript : MonoBehaviour
 
             if (currentLight == 2 && Input.GetMouseButtonDown(0))
             {
-                AudioController.instance.PlaySFX("torch", 0.5f);
+                AudioController.instance.PlaySFX("torch", 0.25f);
             }
 
             //Toggle Light On/Offs
@@ -79,7 +82,7 @@ public class PlayerScript : MonoBehaviour
             {
                 if (currentLight == 3 && lampPlaceable && !lampPlaced)
                 {
-                    AudioController.instance.PlaySFX("lamp", 1f);
+                    AudioController.instance.PlaySFX("lamp", 0.75f);
                     animator.SetInteger("CurrentLight", 0);
                     PlaceLight();
                 }
@@ -103,6 +106,13 @@ public class PlayerScript : MonoBehaviour
         if (lightLevel != 0)
         {
             glow.SetActive(true);
+        }
+
+        //Toggle NoClip
+        if (Input.GetKeyDown(KeyCode.Slash))
+        {
+            GetComponent<CapsuleCollider2D>().enabled = noclipToggle;
+            noclipToggle = !noclipToggle;
         }
     }
 
@@ -139,6 +149,7 @@ public class PlayerScript : MonoBehaviour
 
             animator.SetInteger("CurrentLight", currentLight);
             GameController.instance.DisplayHeldItem();
+            AudioController.instance.PlaySFX("invOpen", 0.1f);
         }
     }
 

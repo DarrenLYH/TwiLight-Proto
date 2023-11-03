@@ -52,6 +52,11 @@ public class CrystalPylon : MonoBehaviour
             isInteractible = true;
         }
 
+        else if (isBroken && isTouching && !isMoving && !isActive)
+        {
+            isInteractible = true;
+        }
+
         else
         {
             isInteractible = false;
@@ -128,7 +133,7 @@ public class CrystalPylon : MonoBehaviour
         else
         {
             Debug.Log("nah");
-            GameController.instance.DC.StartDialogue("999","prompt");
+            GameController.instance.DC.StartDialogue("broken","b01");
         }
     }
 
@@ -340,13 +345,17 @@ public class CrystalPylon : MonoBehaviour
         {
             GameController.instance.DisplayInteractPrompt();
         }
+
+        else if (isBroken)
+        {
+            GameController.instance.DisplayInteractPrompt();
+        }
     }
 
     void OnCollisionExit2D(Collision2D collision)
     {
         isTouching = false;
         GameController.instance.HideInteractPrompt();
-      
     }
     #endregion
 }

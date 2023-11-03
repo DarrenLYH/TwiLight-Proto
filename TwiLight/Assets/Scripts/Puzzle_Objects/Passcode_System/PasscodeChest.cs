@@ -12,6 +12,7 @@ public class PasscodeChest : PasscodeObject
     public override void DoUnlockAction()
     {
         base.DoUnlockAction();
+        AudioController.instance.PlaySFX("chestOpen", 0.5f);
         gameObject.GetComponent<SpriteRenderer>().sprite = sprites[1];
         Instantiate(prefab, transform.position + new Vector3(0, -0.5f, 0), Quaternion.identity);
     }
