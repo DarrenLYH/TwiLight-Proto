@@ -1081,9 +1081,9 @@ MonoBehaviour:
   - {fileID: 966303911}
   - {fileID: 41623456}
   storedSFX:
-  - doorOpen
-  - brushing
-  - sleep
+  - cutsceneDoor
+  - cutsceneBrushing
+  - cutsceneSleep
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

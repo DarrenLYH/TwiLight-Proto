@@ -253,6 +253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: test4
   itemImage: {fileID: -358650307, guid: 9d0a9563df627e3468d3de14e4134e8e, type: 3}
+  isTouching: 0
 --- !u!4 &364202
 Transform:
   m_ObjectHideFlags: 0
@@ -826,13 +827,13 @@ GameObject:
   - component: {fileID: 95595573}
   - component: {fileID: 95595574}
   - component: {fileID: 95595572}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: DialogueTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &95595572
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1277,6 +1278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: 
   itemImage: {fileID: 0}
+  isTouching: 0
 --- !u!1 &125127180
 GameObject:
   m_ObjectHideFlags: 0
@@ -2760,8 +2762,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Activator: {fileID: 477734541}
-  Receiver: {fileID: 1790573132}
+  Receivers: []
   target: {fileID: 0}
+  targetCollider: {fileID: 0}
+  doorOpen: {fileID: 0}
 --- !u!1 &377256081
 GameObject:
   m_ObjectHideFlags: 0
@@ -10896,6 +10900,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: test2
   itemImage: {fileID: -358650307, guid: 9d0a9563df627e3468d3de14e4134e8e, type: 3}
+  isTouching: 0
 --- !u!4 &660488457
 Transform:
   m_ObjectHideFlags: 0
@@ -12275,6 +12280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: test5
   itemImage: {fileID: -358650307, guid: 9d0a9563df627e3468d3de14e4134e8e, type: 3}
+  isTouching: 0
 --- !u!4 &778224316
 Transform:
   m_ObjectHideFlags: 0
@@ -18240,6 +18246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: test1
   itemImage: {fileID: -635740791, guid: d9681ef55dcb1564cabff1b9835d329b, type: 3}
+  isTouching: 0
 --- !u!4 &1215407649
 Transform:
   m_ObjectHideFlags: 0
@@ -18372,6 +18379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: 
   itemImage: {fileID: 0}
+  isTouching: 0
 --- !u!1 &1233311643
 GameObject:
   m_ObjectHideFlags: 0
@@ -18700,6 +18708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: 
   itemImage: {fileID: 0}
+  isTouching: 0
 --- !u!1 &1262165680
 GameObject:
   m_ObjectHideFlags: 0
@@ -20575,6 +20584,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: 
   itemImage: {fileID: 0}
+  isTouching: 0
 --- !u!1 &1475188336
 GameObject:
   m_ObjectHideFlags: 0
@@ -20826,6 +20836,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: 
   itemImage: {fileID: 0}
+  isTouching: 0
 --- !u!1 &1499244573
 GameObject:
   m_ObjectHideFlags: 0
@@ -22412,6 +22423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: test3
   itemImage: {fileID: -358650307, guid: 9d0a9563df627e3468d3de14e4134e8e, type: 3}
+  isTouching: 0
 --- !u!4 &1632922694
 Transform:
   m_ObjectHideFlags: 0
@@ -22586,6 +22598,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: 
   itemImage: {fileID: 0}
+  isTouching: 0
+  cutsceneID: 
+  lineID: 
 --- !u!4 &1673551380 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2415800511968525985, guid: 649542572ccad644a994e0ac3113e11b, type: 3}
@@ -24118,11 +24133,6 @@ MonoBehaviour:
   areaHider: {fileID: 1758860956}
   PM: {fileID: 0}
   isPuzzleElement: 0
---- !u!1 &1790573132 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3488555436190440230, guid: 632590af40a0bdb498991232e8b21938, type: 3}
-  m_PrefabInstance: {fileID: 4987623877270718089}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1790573133 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6405809747716463005, guid: 632590af40a0bdb498991232e8b21938, type: 3}
@@ -26885,6 +26895,7 @@ MonoBehaviour:
   buttonTwo: {fileID: 1044549500}
   elioPortrait: {fileID: 1383484916}
   daraPortrait: {fileID: 729166153}
+  unknownPortrait: {fileID: 0}
   nextPrompt: {fileID: 1029316694}
   speakerName: {fileID: 1709079691}
   dialogueDisplay: {fileID: 1805391275}

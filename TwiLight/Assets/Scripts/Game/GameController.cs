@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour
     public PlayerScript PS;
     public InventoryScript INV;
 
+    bool noclipToggle = false;
+
     //UI Elements
     public GameObject DialogueScreen;
     public GameObject PauseMenu;
@@ -31,6 +33,11 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI levelIndicator;
     public GameObject interactPrompt;
     public GameObject pickupPrompt;
+
+    public GameObject dialogueTriggers;
+    bool dialogueToggle = false;
+
+    public TextMeshProUGUI debugText;
 
     //Game States
     public bool isPaused = false;
@@ -59,6 +66,8 @@ public class GameController : MonoBehaviour
         //Update UI
         PS.animator.SetInteger("CurrentLight", PS.currentLight);
         DisplayHeldItem();
+
+        debugText.gameObject.SetActive(false);
     }
 
     public void Update()
@@ -66,9 +75,48 @@ public class GameController : MonoBehaviour
         //Pause Function Check
         if (Input.GetKeyDown(KeyCode.Escape) && !inScreenUI)
         {
-            AudioController.instance.PlaySFX("button", 0.05f);
             TogglePause();
         }
+
+        #region Cheats
+        //Max Level Player
+        if (Input.GetKeyDown(KeyCode.Comma))
+        {
+            PS.lightLevel = 3;
+            PS.currentLight = PS.lightLevel;
+            DisplayHeldItem();
+
+            PS.levelupAnimator.SetTrigger("LevelUp");
+            AudioController.instance.PlaySFX("levelup", 1f);
+
+            debugText.SetText("Player Level Maxed");
+            debugText.gameObject.SetActive(true);
+            Invoke("FlashDebugText", 3f);
+        }
+
+        //Disable Dialogue
+        if (Input.GetKeyDown(KeyCode.Period))
+        {
+            dialogueTriggers.SetActive(dialogueToggle);
+            debugText.SetText("Dialogue Triggers set to " + dialogueToggle);
+            dialogueToggle = !dialogueToggle;
+
+            
+            debugText.gameObject.SetActive(true);
+            Invoke("FlashDebugText", 3f);
+        }
+
+        //Toggle NoClip
+        if (Input.GetKeyDown(KeyCode.Slash))
+        {
+            PS.GetComponent<CapsuleCollider2D>().enabled = noclipToggle;
+            noclipToggle = !noclipToggle;
+
+            debugText.SetText("NoClip set to " + noclipToggle);
+            debugText.gameObject.SetActive(true);
+            Invoke("FlashDebugText", 3f);
+        }
+        #endregion
     }
 
     #region Game Functions
@@ -77,6 +125,7 @@ public class GameController : MonoBehaviour
     public void TogglePause()
     {
         SetPause(!isPaused);
+        AudioController.instance.PlaySFX("button", 0.05f);
     }
 
     public void SetPause(bool status)
@@ -119,8 +168,10 @@ public class GameController : MonoBehaviour
     //Update UI Display
     public void DisplayHeldItem()
     {
+        hintActivate.SetText("LMB");
+
         //Update Current Held Item
-        if(PS.lightLevel > 0)
+        if (PS.lightLevel > 0)
         {
             int i = PS.currentLight - 1;
             heldItem.GetComponent<Image>().sprite = heldSprites[i];
@@ -130,16 +181,6 @@ public class GameController : MonoBehaviour
         if(PS.lightLevel > 1)
         {
             hintSwitch.SetActive(true);
-        }
-
-        if (PS.currentLight == 3)
-        {
-            hintActivate.SetText("RMB");
-        }
-
-        else
-        {
-            hintActivate.SetText("LMB");
         }
 
         //Unused Debugging UI
@@ -164,6 +205,12 @@ public class GameController : MonoBehaviour
     public void HidePickupPrompt()
     {
         pickupPrompt.SetActive(false);
+    }
+
+    public void FlashDebugText()
+    {
+        debugText.gameObject.SetActive(false);
+        debugText.SetText("");
     }
     #endregion
 

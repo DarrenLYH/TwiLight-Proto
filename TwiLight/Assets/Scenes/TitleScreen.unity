@@ -1118,7 +1118,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Demo Version 0.2.0
+  m_text: Demo Version 0.3.0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: db248aa4fdd7bf84787cedddfa672339, type: 2}
   m_sharedMaterial: {fileID: 7709746093480124329, guid: db248aa4fdd7bf84787cedddfa672339, type: 2}
@@ -1372,33 +1372,39 @@ MonoBehaviour:
   bgmLibrary:
   - name: placeholder
     clip: {fileID: 8300000, guid: 84347d26317dd834da54443130a7d74b, type: 3}
-  - name: footsteps1
-    clip: {fileID: 8300000, guid: 4feedff5e54ae3248a9c2590c7d79955, type: 3}
   sfxLibrary:
   - name: footsteps1
-    clip: {fileID: 8300000, guid: 4feedff5e54ae3248a9c2590c7d79955, type: 3}
+    clip: {fileID: 8300000, guid: c6b7c7fd569833746893c3ce5c5fc30d, type: 3}
   - name: footsteps2
-    clip: {fileID: 8300000, guid: 6599e414d631bab4fb7a5a21b44932a7, type: 3}
+    clip: {fileID: 8300000, guid: c8457873de74fa445bab91439709d9c2, type: 3}
   - name: candle
     clip: {fileID: 8300000, guid: f5de8a35dc8993a4f851a5b4780a3615, type: 3}
   - name: torch
-    clip: {fileID: 8300000, guid: 6461d17c12fe4c740ba0a59bfbed6134, type: 3}
+    clip: {fileID: 8300000, guid: 170c141ecfb4fa6408bdb3edcf0f35dd, type: 3}
   - name: lamp
     clip: {fileID: 8300000, guid: ddcfef8a3fdfaa144b6e03e2a7811c29, type: 3}
   - name: invOpen
     clip: {fileID: 8300000, guid: f2cbd4f43dd809c47a79e19ae5c018cb, type: 3}
   - name: button
-    clip: {fileID: 8300000, guid: b85b8513891baed44a4dd284a3e3a985, type: 3}
+    clip: {fileID: 8300000, guid: f2cbd4f43dd809c47a79e19ae5c018cb, type: 3}
   - name: pickup
     clip: {fileID: 8300000, guid: 36be9ce8b5b559747bcc922d29395777, type: 3}
   - name: doorOpen
-    clip: {fileID: 8300000, guid: 00f6e1bf3c338d9489fb811e3c857893, type: 3}
+    clip: {fileID: 8300000, guid: 0700cc97d91fe9d4fa707a5645764198, type: 3}
   - name: chestOpen
     clip: {fileID: 8300000, guid: 3008a90941eb4b04da64bb769508a68c, type: 3}
   - name: levelup
     clip: {fileID: 8300000, guid: 71f1f21b026081a46b16f07ef87a8f49, type: 3}
   - name: typewriter
     clip: {fileID: 8300000, guid: 833c121f3c4aa1240aaa56d8d21b719d, type: 3}
+  - name: cutsceneDoor
+    clip: {fileID: 8300000, guid: 00f6e1bf3c338d9489fb811e3c857893, type: 3}
+  - name: cutsceneBrushing
+    clip: {fileID: 8300000, guid: 4c3a9433d690d3043bbe9cae904a3379, type: 3}
+  - name: crystalMove
+    clip: {fileID: 8300000, guid: 1815f0b84aeb13842a95ca460b0ea068, type: 3}
+  - name: crystalStop
+    clip: {fileID: 8300000, guid: 149045f18f9f1204095e6ab3ab79e5e0, type: 3}
   bgmSource: {fileID: 203661059}
   sfxSource: {fileID: 1408538765}
   buttonSound: button

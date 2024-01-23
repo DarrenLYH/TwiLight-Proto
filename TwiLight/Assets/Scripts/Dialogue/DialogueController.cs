@@ -33,6 +33,7 @@ public class DialogueController : MonoBehaviour
     string[] choiceB = new string[2];
 
     //Dialogue State
+    bool isInProgress = false;
     public bool isEndDialogue = false;
     bool isChoosing;
 
@@ -65,17 +66,22 @@ public class DialogueController : MonoBehaviour
     #region Dialogue Progression
     public void StartDialogue(string cutsceneID, string lineID) //Takes in the setID, RefID
     {
-        //Enable Screen and Disable Player
-        dialogueScreen.SetActive(true);
-        InitalizeDialogue();
-        GameController.instance.DisablePlayer();
+        if (!isInProgress)//Dialogue State Check
+        {
+            isInProgress = true;
 
-        //Assigns cutscene and dialogue on run
-        AssignCutscene(cutsceneID);
-        AssignDialogue(lineID);
+            //Enable Screen and Disable Player
+            dialogueScreen.SetActive(true);
+            InitalizeDialogue();
+            GameController.instance.DisablePlayer();
 
-        //Starts the typing
-        StartCoroutine(TypeLine());
+            //Assigns cutscene and dialogue on run
+            AssignCutscene(cutsceneID);
+            AssignDialogue(lineID);
+
+            //Starts the typing
+            StartCoroutine(TypeLine());
+        }
     }
 
     void NextLine()
@@ -84,6 +90,7 @@ public class DialogueController : MonoBehaviour
         if(currentDialogue.nextLineID == "-1")
         {
             dialogueScreen.SetActive(false);
+            isInProgress = false;
             GameController.instance.EnablePlayer();
         }
 

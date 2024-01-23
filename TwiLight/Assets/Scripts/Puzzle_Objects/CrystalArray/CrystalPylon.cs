@@ -100,6 +100,7 @@ public class CrystalPylon : MonoBehaviour
         {
             PM.UpdatePuzzle();
             isMoving = false;
+            AudioController.instance.PlaySFX("crystalStop", 0.75f);
         }
     }
 
@@ -139,7 +140,8 @@ public class CrystalPylon : MonoBehaviour
 
     public void MovePylon() //Note to Self: Diagonal Movement is OK
     {
-        isMoving = true; //Update Pylon Statew 
+        AudioController.instance.PlaySFX("crystalMove", 0.75f);
+        isMoving = true; //Update Pylon State
 
         //Cycle position forward
         if (currentPos < positions.Count() - 1 && cycleForward)
@@ -185,6 +187,7 @@ public class CrystalPylon : MonoBehaviour
 
         //Set Sprite Direction
         UpdatePylonState();
+        AudioController.instance.PlaySFX("crystalStop", 0.75f);
     }
     #endregion
 

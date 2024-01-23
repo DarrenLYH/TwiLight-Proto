@@ -30,6 +30,8 @@ public class CutsceneController : MonoBehaviour
 
     public void ProgressCutscene()
     {
+        AudioController.instance.StopSFX(); //Stop any audio playing
+
         if(i == storedCutscenes.Length)
         {
             StartCoroutine(Transition());

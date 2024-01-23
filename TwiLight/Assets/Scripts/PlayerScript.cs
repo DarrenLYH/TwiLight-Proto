@@ -27,8 +27,6 @@ public class PlayerScript : MonoBehaviour
     public bool lampPlaced = false;
     public bool lampContacted = false;
 
-    bool noclipToggle = false;
-
     void Update()
     {
         #region Movement
@@ -39,7 +37,7 @@ public class PlayerScript : MonoBehaviour
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Speed", movement.sqrMagnitude);
 
-        if(movement != Vector2.zero)
+        if (movement != Vector2.zero)
         {
             FC.isWalking = true;
         }
@@ -63,7 +61,7 @@ public class PlayerScript : MonoBehaviour
 
             if (currentLight == 2 && Input.GetMouseButtonDown(0))
             {
-                AudioController.instance.PlaySFX("torch", 0.25f);
+                AudioController.instance.PlaySFX("torch", 0.5f);
             }
 
             //Toggle Light On/Offs
@@ -78,7 +76,7 @@ public class PlayerScript : MonoBehaviour
             }
 
             //Place Lamp
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(0))
             {
                 if (currentLight == 3 && lampPlaceable && !lampPlaced)
                 {
@@ -87,7 +85,7 @@ public class PlayerScript : MonoBehaviour
                     PlaceLight();
                 }
 
-                else if (lampContacted)
+                else if (currentLight == 3 && lampContacted)
                 {
                     AudioController.instance.PlaySFX("pickup", 0.05f);
                     animator.SetInteger("CurrentLight", 3);
@@ -106,13 +104,6 @@ public class PlayerScript : MonoBehaviour
         if (lightLevel != 0)
         {
             glow.SetActive(true);
-        }
-
-        //Toggle NoClip
-        if (Input.GetKeyDown(KeyCode.Slash))
-        {
-            GetComponent<CapsuleCollider2D>().enabled = noclipToggle;
-            noclipToggle = !noclipToggle;
         }
     }
 
