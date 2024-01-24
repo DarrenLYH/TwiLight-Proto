@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//UNUSED CODE
 public class MagicalLight_Lamp : MonoBehaviour
 {
     PlayerScript PS;
@@ -17,7 +18,7 @@ public class MagicalLight_Lamp : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             PS.lampContacted = true;
-            PS.placedLamp = this.gameObject;
+            //PS.placedLamp = this.gameObject;
         }
     }
 

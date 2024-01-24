@@ -168,18 +168,27 @@ public class GameController : MonoBehaviour
     //Update UI Display
     public void DisplayHeldItem()
     {
-        hintActivate.SetText("LMB");
-
         //Update Current Held Item
-        if (PS.lightLevel > 0)
+        if(PS.lightLevel > 0)
         {
             int i = PS.currentLight - 1;
             heldItem.GetComponent<Image>().sprite = heldSprites[i];
         }
 
         //Display Control Hints
-        if(PS.lightLevel > 1)
+        if (PS.lampPlaced)
         {
+            hintSwitch.SetActive(false);
+        }
+
+        if (PS.currentLight == 2)
+        {
+            hintActivate.SetText("LMB");
+        }
+
+        if (PS.currentLight == 3)
+        {
+            hintActivate.SetText("E");
             hintSwitch.SetActive(true);
         }
 
@@ -235,12 +244,15 @@ public class GameController : MonoBehaviour
     //Increase the Player's Light Level by 1
     public void PlayerLevelUp()
     {
-        PS.lightLevel += 1;
-        PS.currentLight = PS.lightLevel;
-        DisplayHeldItem();
+        if(PS.lightLevel < 3)
+        {
+            PS.lightLevel += 1;
+            PS.currentLight = PS.lightLevel;
+            DisplayHeldItem();
 
-        PS.levelupAnimator.SetTrigger("LevelUp");
-        AudioController.instance.PlaySFX("levelup",1f);
+            PS.levelupAnimator.SetTrigger("LevelUp");
+            AudioController.instance.PlaySFX("levelup", 1f);
+        }
     }
 
     //Get player's overall Level

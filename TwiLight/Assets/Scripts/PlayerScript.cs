@@ -21,9 +21,9 @@ public class PlayerScript : MonoBehaviour
     public int lightLevel;   //Maximum Level of Magical Light
     public int currentLight; //Currently Held Light
 
-    public GameObject prefabLamp;
-    public GameObject placedLamp;
-    public bool lampPlaceable = false;
+    //public GameObject prefabLamp;
+    //public GameObject placedLamp;
+    public bool lampPlaceable = true;
     public bool lampPlaced = false;
     public bool lampContacted = false;
 
@@ -75,24 +75,6 @@ public class PlayerScript : MonoBehaviour
                 ML.isToggled = false;
             }
 
-            //Place Lamp
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (currentLight == 3 && lampPlaceable && !lampPlaced)
-                {
-                    AudioController.instance.PlaySFX("lamp", 0.75f);
-                    animator.SetInteger("CurrentLight", 0);
-                    PlaceLight();
-                }
-
-                else if (currentLight == 3 && lampContacted)
-                {
-                    AudioController.instance.PlaySFX("pickup", 0.05f);
-                    animator.SetInteger("CurrentLight", 3);
-                    PickupLight();
-                }
-            }
-
             //Switch between held Light sources
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -127,23 +109,74 @@ public class PlayerScript : MonoBehaviour
         eyes.transform.up = direction;
     }
 
-    public void SwitchLight()
+    public void SwitchLight() //It got jankier and jankier but it works lmao
     {
-        if (lightLevel != 0)
+        if (lightLevel > 1)
         {
-            currentLight++;
+            currentLight++; //Switch Current Light
 
-            if (currentLight > lightLevel)
+            if (currentLight > lightLevel) //Replace Candle With Torch + Rollover if Lamp
             {
-                currentLight = 1;
+                currentLight = 2;
+
+                if (!lampPlaced) //Play Switch Audio
+                {
+                    AudioController.instance.PlaySFX("invOpen", 0.2f);
+                }
             }
 
-            animator.SetInteger("CurrentLight", currentLight);
-            GameController.instance.DisplayHeldItem();
-            AudioController.instance.PlaySFX("invOpen", 0.1f);
+            if (currentLight == 3 && !lampPlaced)
+            {
+                animator.SetInteger("CurrentLight", 0);
+                GameController.instance.DisplayHeldItem();
+                AudioController.instance.PlaySFX("invOpen", 0.2f);
+            }
+
+            if (currentLight == 3 && lampPlaced)
+            {
+                animator.SetInteger("CurrentLight", 0);
+                currentLight = 2;
+                GameController.instance.DisplayHeldItem();
+            }
+
+            else
+            {
+                animator.SetInteger("CurrentLight", currentLight);
+                GameController.instance.DisplayHeldItem();
+            }
         }
     }
 
+      //Place Lamp
+    public void PlaceLamp()
+    {
+        if (currentLight == 3 && lampPlaceable && !lampPlaced)
+        {
+            AudioController.instance.PlaySFX("lamp", 0.75f);
+            animator.SetInteger("CurrentLight", 0);
+
+            //PlaceLight();
+            lampPlaceable = false;
+            lampPlaced = true;
+            SwitchLight();
+        }
+    }
+
+    public void PickupLamp()
+    {
+        if (lampContacted)
+        {
+            AudioController.instance.PlaySFX("pickup", 0.05f);
+            animator.SetInteger("CurrentLight", 3);
+
+            //PickupLight();
+            lampPlaceable = true;
+            lampPlaced = false;
+            SwitchLight();
+        }
+    }
+
+    /* UNUSED CODE
     public void PlaceLight()
     {
         lampPlaceable = false;
@@ -156,5 +189,5 @@ public class PlayerScript : MonoBehaviour
         lampPlaceable = true;
         lampPlaced = false;
         Destroy(placedLamp);
-    }
+    }*/
 }

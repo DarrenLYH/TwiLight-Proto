@@ -14,14 +14,20 @@ public class InventoryScript : MonoBehaviour
     bool isOpen = false;
     public int itemsHeld = 0;
 
+    private void Awake()
+    {
+        ToggleInventory();
+    }
     private void Update()
     {
-        //Open/Close Inventory
+        /*(REMOVED)
+        //Open/Close Inventory 
         if (Input.GetKeyDown(KeyCode.Q))
         {
             AudioController.instance.PlaySFX("invOpen", 0.05f);
             ToggleInventory();
         }
+        */
     }
 
     public void ToggleInventory()
@@ -31,7 +37,7 @@ public class InventoryScript : MonoBehaviour
         //Update Display
         if (isOpen)
         {
-            GetComponent<Image>().sprite = bagSprites[1];
+            GetComponent<Image>().sprite = bagSprites[0]; //Change to [1] for Open Sprite
             invBackground.transform.localScale = new Vector3(2f, 3.74f, 0);
         }
 

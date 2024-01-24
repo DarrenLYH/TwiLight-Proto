@@ -16,27 +16,56 @@ public class CrystalActivator : MonoBehaviour
     //Object State
     public bool isActive;
     public bool isToggled;
+    public bool isTouching;
 
-    CrystalPuzzleManager PM;
+    PlayerScript PS;
+    public GameObject lampSprite;
+    //CrystalPuzzleManager PM;
     public CrystalPylon lastHitPylon;
 
     private void Awake()
     {
-        PM = GetComponentInParent<CrystalPuzzleManager>();
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        PS = player.GetComponent<PlayerScript>();
+        //PM = GetComponentInParent<CrystalPuzzleManager>();
+    }
+
+    private void Update()
+    {
+        if (isTouching && Input.GetKeyDown(KeyCode.E))
+        {
+            if (PS.lampPlaceable)
+            {
+                PS.PlaceLamp();
+                PS.lampContacted = true;
+                ToggleActivator();
+            }
+
+            else if (isActive)
+            {
+                PS.PickupLamp();
+                PS.lampContacted = false;
+                isTouching = false;
+                ToggleActivator();
+            }
+        }
     }
 
     public void ToggleActivator()
     {
         isToggled = !isToggled;
-        
+
         if (isToggled)
         {
+            lampSprite.SetActive(true);
+            isActive = true;
             EmitBeam();
             Debug.Log("Crystal Activated");
         }
 
         else
         {
+            lampSprite.SetActive(false);
             isActive = false;
             Shutoff();
             Debug.Log("Crystal Deactivated");
@@ -46,7 +75,6 @@ public class CrystalActivator : MonoBehaviour
     #region Beam Emitter
     public void EmitBeam()
     {
-        isActive = true;
         LR.positionCount = 2;
 
         switch (beamDirection)
@@ -55,7 +83,7 @@ public class CrystalActivator : MonoBehaviour
             case 0:
                 direction = Vector2.up;
                 break;
-                
+
 
             //Beam Down
             case 1:
@@ -75,7 +103,7 @@ public class CrystalActivator : MonoBehaviour
             default:
                 break;
         }
-                
+
         //Raycast in the Beam Direction to Check Collision
         RaycastHit2D hit = Physics2D.Raycast(LR.transform.position, direction, 20f, contactCheck);
 
@@ -168,6 +196,30 @@ public class CrystalActivator : MonoBehaviour
     #region Contact Check
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (isActive) //Check if Activator is active == Lamp is here
+        {
+            PS.lampContacted = true;
+            isTouching = true;
+            GameController.instance.DisplayInteractPrompt();
+        }
+
+        if (PS.lampPlaceable && PS.currentLight == 3) //Check if Player has Lamp
+        {
+            isTouching = true;
+            GameController.instance.DisplayInteractPrompt();
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collision) //Reset Variables
+    {
+        isTouching = false;
+        GameController.instance.HideInteractPrompt();
+        PS.lampContacted = false;
+    }
+
+    /* UNUSED CODE
+    void OnCollisionEnter2D(Collision2D collision)
+    {
         if (collision.gameObject.CompareTag("PlayerLamp")) //If lamp is placed
         {
             ToggleActivator();
@@ -180,6 +232,6 @@ public class CrystalActivator : MonoBehaviour
         {
             ToggleActivator();
         }
-    }
+    }*/
     #endregion
 }
